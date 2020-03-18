@@ -101,12 +101,29 @@ function add_scripts() {
     time_enqueuer('jquerylatest', '/assets/js/vendors/jquery-3.2.0.min.js', 'script', true);
     time_enqueuer('slick', '/assets/js/vendors/slick.js', 'script', true);
     time_enqueuer('onepagescrolljs', '/assets/js/vendors/onepagescroll.js', 'script', true);
-    time_enqueuer('main.bundle', '/assets/js/bundle.js', 'script', true);
+    time_enqueuer('app-main', '/assets/js/main.bundle.js', 'script', true);
     
-    wp_localize_script( 'app', 'SITEDATA', array(
+    wp_localize_script( 'app-main', 'SITEDATA', array(
         'url' => get_site_url(),
         'themepath' => get_template_directory_uri(),
         'ajax_url' => admin_url('admin-ajax.php'),
+        'product_id' => get_the_ID(),
+        'is_home' => is_home() ? 'true' : 'false',
+        'is_product' => is_product() ? 'true' : 'false',
+        'is_filter' => is_page('filter') ? 'true' : 'false',
+        'is_cart' => is_cart() ? 'true' : 'false',
+        'is_search' => is_search() ? 'true' : 'false',
+        'search_query' => get_search_query() ? get_search_query() : '',
+        'category_slug' => $category_slug,
+        'is_shop' => is_shop() ? 'true' : 'false',
+        'current_user_id' => get_current_user_id(),
+        'user_url' => $user_url,
+        'paged' => $paged ,
+        'nonce_like' => $nonce_like ,
+        'ajax_noncy_nonce' =>  wp_create_nonce( 'noncy_nonce' ),
+        'min_price_per_product_cat' => $min_price_per_product_cat ? $min_price_per_product_cat : 0,
+        'max_price_per_product_cat' => $max_price_per_product_cat ? $max_price_per_product_cat : 50000,
+        'sizes' => $sizes_v1,
     ));
 }
 
