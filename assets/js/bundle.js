@@ -59,7 +59,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "c45384af8736ee3b3e02"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "936f6320e3062d36a33a"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
@@ -700,13 +700,13 @@
 /******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
 /******/
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "C:\\xampp\\htdocs\\victoryandr\\victory-theme\\assets";
+/******/ 	__webpack_require__.p = "C:\\xampp\\htdocs\\victory_an\\wp-content\\themes\\victory-theme\\assets";
 /******/
 /******/ 	// __webpack_hash__
 /******/ 	__webpack_require__.h = function() { return hotCurrentHash; };
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return hotCreateRequire(16)(__webpack_require__.s = 16);
+/******/ 	return hotCreateRequire(15)(__webpack_require__.s = 15);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -909,116 +909,6 @@ module.exports = Html5Entities;
 /* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
-
-
-$('.btn-hamburger').click(function (e) {
-  $(this).toggleClass('active');
-  $('.hidden-menu_block').toggleClass('active');
-  $('.overlay').toggleClass('active');
-});
-$('.overlay').click(function (e) {
-  $(this).removeClass('active');
-  $('.btn-hamburger').removeClass('active');
-  $('.hidden-menu_block').removeClass('active');
-});
-$('.choice-button').click(function (event) {
-  event.preventDefault();
-  $('.choice-button').removeClass('active');
-  $(this).addClass('active');
-
-  var id = $(this).attr('data-id');
-  if (id) {
-    $('.collections-content-inner:visible').fadeOut(0, function () {
-      $('.collections-content').find('#' + id).fadeIn('slow', function () {
-        $('.collections-slick').slick('reinit');
-      });
-    });
-  }
-});
-$('.collections-slick').slick({
-  infinite: true,
-  slidesToShow: 5,
-  slidesToScroll: 5,
-  arrows: true,
-  dots: false,
-  responsive: [
-          {
-            breakpoint: 1280,
-            settings: {
-              slidesToShow: 4,
-              slidesToScroll: 4,
-              infinite: true,
-              dots: false
-            }
-          },
-          {
-            breakpoint: 1025,
-            settings: {
-              slidesToShow: 3,
-              slidesToScroll: 3
-            }
-          },
-          {
-            breakpoint: 800,
-            settings: {
-              slidesToShow: 2,
-              slidesToScroll: 2
-            }
-          },
-          {
-            breakpoint: 400,
-            settings: {
-              slidesToShow: 1,
-              slidesToScroll: 1
-            }
-          }
-          // You can unslick at a given breakpoint now by adding:
-          // settings: "unslick"
-          // instead of a settings object
-        ]
-});
-
-$('.product-slick-for').slick({
-  slidesToShow: 1,
-  slidesToScroll: 1,
-  arrows: false,
-  fade: true,
-  asNavFor: '.product-slick-nav'
-});
-$('.product-slick-nav').slick({
-  slidesToShow: 6,
-  slidesToScroll: 1,
-  asNavFor: '.product-slick-for',
-  focusOnSelect: true,
-  vertical: true
-});
-
-    if ($(window).outerWidth() > 1025) {
-		onepagescroll('.main-content.pages',{
-		
-		  pageContainer: 'section',    
-		
-		  animationType: 'ease-in-out',
-		
-		  animationTime: 500,       
-		
-		  infinite: false,          
-		
-		  pagination: true,            
-		
-		  keyboard: true,          
-		
-		  direction: 'vertical'       
-		});
-	}
-
-if (window.getComputedStyle(document.body).mixBlendMode == undefined) $(".ops-navigation").addClass("curtain");
-
-/***/ }),
-/* 2 */
-/***/ (function(module, exports, __webpack_require__) {
-
 /* WEBPACK VAR INJECTION */(function(module) {/*eslint-env browser*/
 /*global __resourceQuery __webpack_public_path__*/
 
@@ -1180,11 +1070,11 @@ if (typeof window !== 'undefined') {
 }
 
 function createReporter() {
-  var strip = __webpack_require__(10);
+  var strip = __webpack_require__(9);
 
   var overlay;
   if (typeof document !== 'undefined' && options.overlay) {
-    overlay = __webpack_require__(11)({
+    overlay = __webpack_require__(10)({
       ansiColors: options.ansiColors,
       overlayStyles: options.overlayStyles,
     });
@@ -1251,7 +1141,7 @@ function createReporter() {
   };
 }
 
-var processUpdate = __webpack_require__(12);
+var processUpdate = __webpack_require__(11);
 
 var customHandler;
 var subscribeAllHandler;
@@ -1326,10 +1216,10 @@ if (module) {
   };
 }
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(13)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(12)(module)))
 
 /***/ }),
-/* 3 */
+/* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -1355,7 +1245,7 @@ if(true) {
 				check();
 			}
 
-			__webpack_require__(15)(updatedModules, updatedModules);
+			__webpack_require__(14)(updatedModules, updatedModules);
 
 			if(upToDate()) {
 				console.log("[HMR] App is up to date.");
@@ -1372,7 +1262,7 @@ if(true) {
 			}
 		});
 	};
-	var hotEmitter = __webpack_require__(14);
+	var hotEmitter = __webpack_require__(13);
 	hotEmitter.on("webpackHotUpdate", function(currentHash) {
 		lastHash = currentHash;
 		if(!upToDate() && module.hot.status() === "idle") {
@@ -1387,7 +1277,7 @@ if(true) {
 
 
 /***/ }),
-/* 4 */
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1570,7 +1460,7 @@ ansiHTML.reset()
 
 
 /***/ }),
-/* 5 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1581,7 +1471,7 @@ module.exports = function () {
 
 
 /***/ }),
-/* 6 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2036,19 +1926,19 @@ function unwrapListeners(arr) {
 
 
 /***/ }),
-/* 7 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = {
-  XmlEntities: __webpack_require__(9),
-  Html4Entities: __webpack_require__(8),
+  XmlEntities: __webpack_require__(8),
+  Html4Entities: __webpack_require__(7),
   Html5Entities: __webpack_require__(0),
   AllHtmlEntities: __webpack_require__(0)
 };
 
 
 /***/ }),
-/* 8 */
+/* 7 */
 /***/ (function(module, exports) {
 
 var HTML_ALPHA = ['apos', 'nbsp', 'iexcl', 'cent', 'pound', 'curren', 'yen', 'brvbar', 'sect', 'uml', 'copy', 'ordf', 'laquo', 'not', 'shy', 'reg', 'macr', 'deg', 'plusmn', 'sup2', 'sup3', 'acute', 'micro', 'para', 'middot', 'cedil', 'sup1', 'ordm', 'raquo', 'frac14', 'frac12', 'frac34', 'iquest', 'Agrave', 'Aacute', 'Acirc', 'Atilde', 'Auml', 'Aring', 'Aelig', 'Ccedil', 'Egrave', 'Eacute', 'Ecirc', 'Euml', 'Igrave', 'Iacute', 'Icirc', 'Iuml', 'ETH', 'Ntilde', 'Ograve', 'Oacute', 'Ocirc', 'Otilde', 'Ouml', 'times', 'Oslash', 'Ugrave', 'Uacute', 'Ucirc', 'Uuml', 'Yacute', 'THORN', 'szlig', 'agrave', 'aacute', 'acirc', 'atilde', 'auml', 'aring', 'aelig', 'ccedil', 'egrave', 'eacute', 'ecirc', 'euml', 'igrave', 'iacute', 'icirc', 'iuml', 'eth', 'ntilde', 'ograve', 'oacute', 'ocirc', 'otilde', 'ouml', 'divide', 'oslash', 'ugrave', 'uacute', 'ucirc', 'uuml', 'yacute', 'thorn', 'yuml', 'quot', 'amp', 'lt', 'gt', 'OElig', 'oelig', 'Scaron', 'scaron', 'Yuml', 'circ', 'tilde', 'ensp', 'emsp', 'thinsp', 'zwnj', 'zwj', 'lrm', 'rlm', 'ndash', 'mdash', 'lsquo', 'rsquo', 'sbquo', 'ldquo', 'rdquo', 'bdquo', 'dagger', 'Dagger', 'permil', 'lsaquo', 'rsaquo', 'euro', 'fnof', 'Alpha', 'Beta', 'Gamma', 'Delta', 'Epsilon', 'Zeta', 'Eta', 'Theta', 'Iota', 'Kappa', 'Lambda', 'Mu', 'Nu', 'Xi', 'Omicron', 'Pi', 'Rho', 'Sigma', 'Tau', 'Upsilon', 'Phi', 'Chi', 'Psi', 'Omega', 'alpha', 'beta', 'gamma', 'delta', 'epsilon', 'zeta', 'eta', 'theta', 'iota', 'kappa', 'lambda', 'mu', 'nu', 'xi', 'omicron', 'pi', 'rho', 'sigmaf', 'sigma', 'tau', 'upsilon', 'phi', 'chi', 'psi', 'omega', 'thetasym', 'upsih', 'piv', 'bull', 'hellip', 'prime', 'Prime', 'oline', 'frasl', 'weierp', 'image', 'real', 'trade', 'alefsym', 'larr', 'uarr', 'rarr', 'darr', 'harr', 'crarr', 'lArr', 'uArr', 'rArr', 'dArr', 'hArr', 'forall', 'part', 'exist', 'empty', 'nabla', 'isin', 'notin', 'ni', 'prod', 'sum', 'minus', 'lowast', 'radic', 'prop', 'infin', 'ang', 'and', 'or', 'cap', 'cup', 'int', 'there4', 'sim', 'cong', 'asymp', 'ne', 'equiv', 'le', 'ge', 'sub', 'sup', 'nsub', 'sube', 'supe', 'oplus', 'otimes', 'perp', 'sdot', 'lceil', 'rceil', 'lfloor', 'rfloor', 'lang', 'rang', 'loz', 'spades', 'clubs', 'hearts', 'diams'];
@@ -2201,7 +2091,7 @@ module.exports = Html4Entities;
 
 
 /***/ }),
-/* 9 */
+/* 8 */
 /***/ (function(module, exports) {
 
 var ALPHA_INDEX = {
@@ -2362,12 +2252,12 @@ module.exports = XmlEntities;
 
 
 /***/ }),
-/* 10 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var ansiRegex = __webpack_require__(5)();
+var ansiRegex = __webpack_require__(4)();
 
 module.exports = function (str) {
 	return typeof str === 'string' ? str.replace(ansiRegex, '') : str;
@@ -2375,7 +2265,7 @@ module.exports = function (str) {
 
 
 /***/ }),
-/* 11 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*eslint-env browser*/
@@ -2401,7 +2291,7 @@ var styles = {
   textAlign: 'left',
 };
 
-var ansiHTML = __webpack_require__(4);
+var ansiHTML = __webpack_require__(3);
 var colors = {
   reset: ['transparent', 'transparent'],
   black: '181818',
@@ -2415,7 +2305,7 @@ var colors = {
   darkgrey: '6D7891',
 };
 
-var Entities = __webpack_require__(7).AllHtmlEntities;
+var Entities = __webpack_require__(6).AllHtmlEntities;
 var entities = new Entities();
 
 function showProblems(type, lines) {
@@ -2480,7 +2370,7 @@ module.exports.showProblems = showProblems;
 
 
 /***/ }),
-/* 12 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -2643,7 +2533,7 @@ module.exports = function(hash, moduleMap, options) {
 
 
 /***/ }),
-/* 13 */
+/* 12 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
@@ -2671,15 +2561,15 @@ module.exports = function(module) {
 
 
 /***/ }),
-/* 14 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var EventEmitter = __webpack_require__(6);
+var EventEmitter = __webpack_require__(5);
 module.exports = new EventEmitter();
 
 
 /***/ }),
-/* 15 */
+/* 14 */
 /***/ (function(module, exports) {
 
 /*
@@ -2715,12 +2605,12 @@ module.exports = function(updatedModules, renewedModules) {
 
 
 /***/ }),
-/* 16 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(1);
-__webpack_require__(3);
-module.exports = __webpack_require__(2);
+(function webpackMissingModule() { throw new Error("Cannot find module \"./js/src/app.js\""); }());
+__webpack_require__(2);
+module.exports = __webpack_require__(1);
 
 
 /***/ })
