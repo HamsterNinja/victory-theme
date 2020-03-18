@@ -159,8 +159,8 @@ function add_scripts() {
     time_enqueuer('jquerylatest', '/assets/js/vendors/jquery-3.2.0.min.js', 'script', true);
     time_enqueuer('slick', '/assets/js/vendors/slick.js', 'script', true);
     time_enqueuer('onepagescrolljs', '/assets/js/vendors/onepagescroll.js', 'script', true);
-    time_enqueuer('app-main', '/assets/js/main.bundle.js', 'script', true);
-
+    time_enqueuer('mainbundle', '/assets/js/main.bundle.js', 'script', true);
+    
     $queried_object = get_queried_object();
     if ($queried_object) {
         $term_id = $queried_object->term_id;
@@ -198,7 +198,7 @@ function add_scripts() {
     $sizes_v1 = TimberHelper::transient( 'sizes_v1', function(){
         return getAllSizes();
     }, 2600 );
-    
+
     wp_localize_script( 'app-main', 'SITEDATA', array(
         'url' => get_site_url(),
         'themepath' => get_template_directory_uri(),
