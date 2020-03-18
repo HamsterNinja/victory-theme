@@ -96,12 +96,108 @@ function time_enqueuer($my_handle, $relpath, $type='script', $async='false', $me
     else if($type == 'style') wp_enqueue_style($my_handle, $uri, $my_deps, $vsn, $media);      
 }
 
+//Самая низкая цена в категории
+function get_min_price_per_product_cat( $term_id ) {
+    global $wpdb;
+    $sql = "
+    SELECT MIN( meta_value+0 ) as minprice
+    FROM {$wpdb->posts} 
+    INNER JOIN {$wpdb->term_relationships} ON ({$wpdb->posts}.ID = {$wpdb->term_relationships}.object_id)
+    INNER JOIN {$wpdb->postmeta} ON ({$wpdb->posts}.ID = {$wpdb->postmeta}.post_id) 
+    WHERE 
+    ( {$wpdb->term_relationships}.term_taxonomy_id IN (%d) ) 
+    AND {$wpdb->posts}.post_type = 'product' 
+    AND {$wpdb->posts}.post_status = 'publish' 
+    AND {$wpdb->postmeta}.meta_key = '_price'
+    "; 
+    return $wpdb->get_var( $wpdb->prepare( $sql, $term_id ) );
+};
+
+//Самая высокая цена в категории
+function get_max_price_per_product_cat( $term_id ) {
+    global $wpdb;
+    $sql = "
+    SELECT MAX( meta_value+0 ) as maxprice
+    FROM {$wpdb->posts} 
+    INNER JOIN {$wpdb->term_relationships} ON ({$wpdb->posts}.ID = {$wpdb->term_relationships}.object_id)
+    INNER JOIN {$wpdb->postmeta} ON ({$wpdb->posts}.ID = {$wpdb->postmeta}.post_id) 
+    WHERE 
+    ( {$wpdb->term_relationships}.term_taxonomy_id IN (%d) ) 
+    AND {$wpdb->posts}.post_type = 'product' 
+    AND {$wpdb->posts}.post_status = 'publish' 
+    AND {$wpdb->postmeta}.meta_key = '_price'
+    "; 
+    return $wpdb->get_var( $wpdb->prepare( $sql, $term_id ) );
+};
+
+// Получение размеров всех товаров
+function getAllSizes() {
+    $args_product_variation = array(
+        'post_type'     => 'product_variation',
+        'post_status'   => array( 'private', 'publish' ),
+        'numberposts'   => -1,
+        'orderby'       => 'menu_order',
+        'order'         => 'ASC',
+    );
+    $product_variations_query = get_posts( $args_product_variation );    
+    $sizes = [];
+
+    foreach ( $product_variations_query as $variation ) {
+        $product_variation = new WC_Product_Variation( $variation->ID );
+        $product_variation_object_value = $product_variation->get_variation_attributes();
+        $sizes[] = $product_variation_object_value['attribute_razmer'];
+    }
+
+    $sizes = array_unique($sizes);
+    $sizes = array_filter($sizes);
+    $sizes = array_values($sizes);
+    return $sizes;
+}
+
 add_action('wp_footer', 'add_scripts');
 function add_scripts() {
     time_enqueuer('jquerylatest', '/assets/js/vendors/jquery-3.2.0.min.js', 'script', true);
     time_enqueuer('slick', '/assets/js/vendors/slick.js', 'script', true);
     time_enqueuer('onepagescrolljs', '/assets/js/vendors/onepagescroll.js', 'script', true);
     time_enqueuer('app-main', '/assets/js/main.bundle.js', 'script', true);
+
+    $queried_object = get_queried_object();
+    if ($queried_object) {
+        $term_id = $queried_object->term_id;
+        $term = get_term( $term_id, 'product_cat' );
+        $category_slug = $term->slug;
+        $current_brand_term = get_term( $term_id, 'brand_product' );
+        $current_brand = $current_brand_term->slug;
+    }
+    if($_GET && $category_slug == null){
+        if ($_GET['product-cat']) {
+            $category_slug = $_GET['product-cat'];
+        }
+    }
+
+    if (is_product()) {
+        $post_params = Timber::get_post();
+        $product_params = wc_get_product( $post_params->ID );
+        $regular_price = $product_params->get_regular_price();
+        $sale_price = $product_params->get_sale_price();
+    }
+    else{
+        $regular_price = 0;
+        $sale_price = 0;
+    }
+
+    $user = get_userdata(get_current_user_id());
+    if ($user) {
+        $user_url = $user->get('user_url');
+    }
+
+    $min_price_per_product_cat = get_min_price_per_product_cat($term_id);
+    $max_price_per_product_cat = round(get_max_price_per_product_cat($term_id), -3);
+
+    //TODO: починить блядоразмеры
+    $sizes_v1 = TimberHelper::transient( 'sizes_v1', function(){
+        return getAllSizes();
+    }, 2600 );
     
     wp_localize_script( 'app-main', 'SITEDATA', array(
         'url' => get_site_url(),
