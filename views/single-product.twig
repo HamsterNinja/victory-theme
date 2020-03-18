@@ -1,0 +1,79 @@
+{% include "partials/header.twig" %}
+<main class='main-content single' id="app">
+    <div class="product-content">
+        {{ function('woocommerce_breadcrumb') }}
+        <div class="product-slider">
+            <div class="product-slick-for">
+                {% for item in 0..2 %}
+                <div class="product-slick-for-content">
+                    <a data-fancybox="" href=""><img src="{{ site.theme.link }}/assets/images/product.jpg" alt=""></a>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="product-slick-nav">
+                {% for item in 0..2 %}
+                <div class="product-slick-nav-content">
+                    <img src="{{ site.theme.link }}/assets/images/product.jpg" alt="">
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="product-info">
+            <div class="product-name">
+                <h1>{{ post.title }}</h1>
+            </div>
+            <div class="product-price">
+                <div class="product-old-price"><span class="old-price_value">{{ regular_price | number_format(0, '.', ' ') }} &#8381;</span><span class="sale-percent">10%</span></div>
+                <div class="product-current-price">{{ sale_price | number_format(0, '.', ' ') }} &#8381;</div>
+            </div>
+            <div class="product-sizes">
+                <div class="product-sizes-header">
+                    <div class="product-sizes-name">Выберите размер</div>
+                    <a class="product-sizes-table" href="">Таблица размеров</a>
+                </div>
+                <div class="product-sizes-content">
+                    {% for item in 0..5 %}
+                    <label class="control control-radio">
+                        <input type="radio" name="radio" />
+                        <div class="control_indicator">48</div>
+                    </label>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="product-info-content">
+                <p>Состав: 55% Хлопок, 45% ПЭ</p>
+            </div>
+            <div class="product-buttons">
+                <a class="btn-cart" href="">Добавить в корзину</a>
+            </div>
+            <div class="product-description">
+                {{ post.content }}
+            </div>
+        </div>
+    </div>
+    <div class="collections_block">
+        <div class="collections_block-header">
+            <div class="collections_block-title">Похожие товары</div>
+        </div>
+        <div class="collections-content _single-product">
+            <div class="collections-content-inner">
+                <div class="collections-slick">
+                    {% for item in 0..5 %}
+                    <div class="collections-slick-content">
+                        <a class="catalog-content-item" href="{{ site.link }}/product/bluza-obemnaya-iz-printovannoj-viskozy/" style="background-image: url({{ site.theme.link }}/assets/images/collection.jpg);">
+                            <div class="catalog-content-item-name">
+                                <h4>Блуза объемная из принтованной вискозы</h4>
+                            </div>
+                            <div class="catalog-content-item-price">
+                                <div class="catalog_old-price">14 000 руб</div>
+                                <div class="catalog_current-price">14 000 руб</div>
+                            </div>
+                        </a>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% include "partials/footer.twig" %}

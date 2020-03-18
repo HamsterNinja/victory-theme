@@ -1,0 +1,33 @@
+{% include "partials/header.twig" %}
+<main class='main-content' id="app">
+	<div class="catalog-content">
+		<div class="catalog-content-header">
+			<div class="catalog-title">
+				<h1>Каталог</h1>
+			</div>
+				{{ function('woocommerce_breadcrumb') }}
+		</div>
+		<div class="catalog-content-inner">
+		{% if posts is not empty  %}
+				{% for post in posts %}
+			<a class="catalog-content-item" href="{{ site.link }}/product/bluza-obemnaya-iz-printovannoj-viskozy/" style="background-image: url({{ site.theme.link }}/assets/images/collection.jpg);">
+					<div class="catalog-content-item-name"><h4>Блуза объемная из принтованной вискозы</h4></div>
+					<div class="catalog-content-item-price">
+						{% if sale_price %}
+							<div class="catalog_old-price">{{ regular_price | number_format(0, '.', ' ') }} руб</div>
+							<div class="catalog_current-price">{{ sale_price | number_format(0, '.', ' ') }} руб</div>
+						{% else %}
+							<div class="catalog_current-price">{{ regular_price | number_format(0, '.', ' ') }} руб</div>
+						{% endif %}
+					</div>
+			</a>
+		{% endfor %}
+            {% else %}
+            <div class="not-content">
+            	Категория пуста
+            </div>
+		{% endif %}
+		</div>
+	</div>
+</main>
+{% include "partials/footer.twig" %}
