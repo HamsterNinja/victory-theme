@@ -73,27 +73,25 @@ $('.product-slick-nav').slick({
   focusOnSelect: true,
   vertical: true
 });
-$(window).on('resize', function() {
 
-if($(window).width > 1025) {
-onepagescroll('.main-content.pages',{
+    if ($(window).outerWidth() > 1025) {
+        onepagescroll('.main-content.pages',{
+        
+          pageContainer: 'section',    
+        
+          animationType: 'ease-in-out',
+        
+          animationTime: 500,       
+        
+          infinite: false,          
+        
+          pagination: true,            
+        
+          keyboard: true,          
+        
+          direction: 'vertical'       
+        });
+    }
 
-  pageContainer: 'section',    
-
-  animationType: 'ease-in-out',
-
-  animationTime: 500,       
-
-  infinite: false,          
-
-  pagination: true,            
-
-  keyboard: true,          
-
-  direction: 'vertical'       
-});
-}
-
-});
 if (window.getComputedStyle(document.body).mixBlendMode == undefined)
     $(".ops-navigation").addClass("curtain");
