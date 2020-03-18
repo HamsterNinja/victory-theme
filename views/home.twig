@@ -1,5 +1,5 @@
 {% include "partials/header.twig" %}
-<main class='main-content pages' id="app">
+<main class='main-content pages'>
     <section class="block-with-video">
         <iframe src="https://player.vimeo.com/video/325192695?title=0&amp;portrait=0&amp;byline=0&amp;autoplay=1&amp;loop=1" frameborder="0" allow="autoplay; fullscreen" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen=""></iframe>
         <div class="video-decore"></div>
@@ -20,7 +20,7 @@
                 <div class="collections-slick">
                     {% for post in new_products %}
                     <div class="collections-slick-content">
-                        <a class="catalog-content-item" href="http://ca85425.tmweb.ru/amadreh/victory_an/product/bluza-obemnaya-iz-printovannoj-viskozy/" style="background-image: url({{ post.thumbnail.src('large')|tojpg }});">
+                        <a class="catalog-content-item" href="{{ site.link }}/product/bluza-obemnaya-iz-printovannoj-viskozy/" style="background-image: url({{ post.thumbnail.src('large')|tojpg }});">
                             <div class="catalog-content-item-name">
                                 <h4>{{ post.title }}</h4>
                             </div>
@@ -40,7 +40,7 @@
                 <div class="collections-slick">
                     {% for post in sale_products %}
                     <div class="collections-slick-content">
-                        <a class="catalog-content-item" href="http://ca85425.tmweb.ru/amadreh/victory_an/product/bluza-obemnaya-iz-printovannoj-viskozy/" style="background-image: url({{ post.thumbnail.src('large')|tojpg }});">
+                        <a class="catalog-content-item" href="{{ site.link }}/product/bluza-obemnaya-iz-printovannoj-viskozy/" style="background-image: url({{ post.thumbnail.src('large')|tojpg }});">
                             <div class="catalog-content-item-name">
                                 <h4>{{ post.title }}</h4>
                             </div>
@@ -59,7 +59,7 @@
     </section>
     <section class="collections_block">
         {% for item in 0..2 %}
-        <a href="http://ca85425.tmweb.ru/amadreh/victory_an/product-category/sale/" class="collections-item" style="background-image: url({{ site.theme.link }}/assets/images/collect.jpg);">
+        <a href="{{ site.link }}/product-category/sale/" class="collections-item" style="background-image: url({{ site.theme.link }}/assets/images/collect.jpg);">
             <div class="collections-item-info">
                 <div class="coolections-item-name">FALL-WINTER<br>19/20</div>
                 <div class="collections-item-open">Открыть</div>
