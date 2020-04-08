@@ -5,35 +5,34 @@
         <div class="video-decore"></div>
     </section>
     <section class="main-page-catalog">
-        <div class="tabs-buttons">
+        <!-- <div class="tabs-buttons">
             {% if new_products is not empty %}
                 <div class="choice-button active" data-id="c1">NEW</div>
             {% endif %}
             {% if sale_products is not empty %}
                 <div class="choice-button" data-id="c2">SALE</div>
             {% endif %}
-        </div>
+        </div> -->
         <div class="collections-content">
 
-            {% if new_products is not empty %}
+            
             <div class="collections-content-inner" id="c1">
                 <div class="collections-slick">
-                    {% for post in new_products %}
+                    {% for product in random_prod %}
                     <div class="collections-slick-content">
-                        <a class="catalog-content-item" href="{{ site.link }}/product/bluza-obemnaya-iz-printovannoj-viskozy/" style="background-image: url({{ post.thumbnail.src('large')|tojpg }});">
-                            <div class="catalog-content-item-name">
-                                <h4>{{ post.title }}</h4>
-                            </div>
+                        <a class="catalog-content-item" href="{{ product.link }}">
+                                    <img src="{{ product.thumbnail.src }}" alt="">
+                                    <div class="catalog-content-item-name"><h4>{{ product.name }}</h4></div>
                             <div class="catalog-content-item-price">
-                                <div class="catalog_old-price">14 000 руб</div>
-                                <div class="catalog_current-price">14 000 руб</div>
+                                <!-- <div class="catalog_old-price">14 000 руб</div> -->
+                                <div class="catalog_current-price">{{ product._price|apply_filters('wc_price') }} руб</div>
                             </div>
                         </a>
                     </div>
                     {% endfor %}
                 </div>
             </div>
-            {% endif %}
+            
 
             {% if sale_products is not empty %}
             <div class="collections-content-inner" id="c2">

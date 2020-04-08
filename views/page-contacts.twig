@@ -1,0 +1,93 @@
+{% include "partials/header.twig" %}
+<main class='main-content single'>
+	{{ function('woocommerce_breadcrumb') }}
+	<div class="page-contact container">
+		<h1 class="default-page-title">{{ post.title }}</h1>
+        <div class="contacts-page-block">
+            <div class="contacts-page-buttons">
+                <div class="choice-button active" data-id="c1">Шоу-Рум</div>
+                <div class="choice-button" data-id="c2">Форменная одежда РЖД</div>
+                <div class="choice-button" data-id="c3">Напишите нам</div>
+            </div>
+            <div class="contacts-page-content">
+                <div class="contacts-page-content-inner visible" id="c1">
+                    <div class="contacts-page-items">
+                        <div class="contacts-page-items-left">
+                            <div class="contacts-page-item">
+                                <div class="contacts-page-item-name">Адрес:</div>
+                                <div class="contacts-page-item-address"><span>г.Москва м. Преображенская площадь, ул. Краснобогатырская д.89 стр.4</span></div>
+                            </div>
+                            <div class="contacts-page-item">
+                                <div class="contacts-page-item-name">Телефон:</div>
+                                <div class="contacts-page-phone"><a href="tel:+7 (495) 540-52-44">+7 (495) 540-52-44 <span>(доб.202)</span></a></div>
+                                <div class="contacts-page-wa"><a href="whatsapp://send?phone=+79035457738">+7 (903) 545-77-38</a></div>
+                            </div>
+                            <div class="contacts-page-item">
+                                <div class="contacts-page-item-name">E-mail:</div>
+                                <div class="contacts-page-email"><a href="mailto:shop@v-a.ru">shop@v-a.ru</a></div>
+                            </div>
+                        </div>
+                        <div class="contacts-page-items-right">
+                            <div class="contacts-page-item">
+                                <div class="contacts-page-item-name">График работы</div>
+                                <p><b>Пн - Пт:</b> с 10:00 до 19:00</p>
+                                <p><b>Суббота:</b> с 12.00 до 18.00</p>
+                                <p><b>Воскресенье:</b> Выходной</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="contacts-page-map">
+                        <script type="text/javascript" charset="utf-8" async src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3Aa16ebb8737dee4a0b9e557d0a8a514b4f945f63225f0570d635d7c1dfc40e7e2&amp;width=100%25&amp;height=375&amp;lang=ru_RU&amp;scroll=true"></script>
+                    </div>
+                </div>
+                <div class="contacts-page-content-inner" id="c2">
+                    <div class="contacts-page-items">
+                        <div class="contacts-page-items-left">
+                            <div class="contacts-page-item">
+                                <div class="contacts-page-item-name">Адрес:</div>
+                                <div class="contacts-page-item-address"><span>г.Москва м. Преображенская площадь, ул. Краснобогатырская д.89 стр.4</span></div>
+                            </div>
+                            <div class="contacts-page-item">
+                                <div class="contacts-page-item-name">Телефон:</div>
+                                <div class="contacts-page-phone"><a href="tel:+79035457739">+7 (903) 545-77-39</a></div>
+                            </div>
+                            <div class="contacts-page-item">
+                                <div class="contacts-page-item-name">E-mail:</div>
+                                <div class="contacts-page-email"><a href="mailto:natasha-RGD@v-a.ru">natasha-RGD@v-a.ru</a></div>
+                            </div>
+                        </div>
+                        <div class="contacts-page-items-right">
+                            <div class="contacts-page-item">
+                                <div class="contacts-page-item-name">График работы:</div>
+                                <p><b>Пн - Пт:</b> с 09:00 до 18:00</p>
+                                <p><b>Суббота:</b> Выходной</p>
+                                <p><b>Воскресенье:</b> Выходной</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="contacts-page-map">
+                        <script type="text/javascript" charset="utf-8" async src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3Aa16ebb8737dee4a0b9e557d0a8a514b4f945f63225f0570d635d7c1dfc40e7e2&amp;width=100%25&amp;height=375&amp;lang=ru_RU&amp;scroll=true"></script>
+                    </div>
+                </div>
+                <div class="contacts-page-content-inner" id="c3">
+                    <div class="contacts-page-form">
+                        <div class="contacts-page-form-name">Напишите нам сообщение</div>
+                        <form action="javascript:void(0);" id="alxModalForm2">
+                            <div class="contacts-form-left">
+                                <textarea name="description" placeholder="Напишите сообщение"></textarea>
+                            </div>
+                            <div class="contacts-form-right">
+                                <input class="contacts-form-input" type="name" placeholder="Ваше имя">
+                                <input class="contacts-form-input" type="phone" placeholder="Ваш номер телефона">
+                                <input class="contacts-form-submit" type="submit" value="Отправить сообщение">
+                            </div>
+                        </form>
+                        <div class="contacts-form-text">*Нажав кнопку отправить сообщение, вы соглашаетесь на обработку персональных данных</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+	
+</main>
+{% include "partials/footer.twig" %}

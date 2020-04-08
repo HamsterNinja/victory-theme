@@ -23,28 +23,38 @@
                 <h1>{{ post.title }}</h1>
             </div>
             <div class="product-price">
-                <div class="product-old-price"><span class="old-price_value">{{ regular_price | number_format(0, '.', ' ') }} &#8381;</span><span class="sale-percent">10%</span></div>
-                <div class="product-current-price">{{ sale_price | number_format(0, '.', ' ') }} &#8381;</div>
+                <div class="product-old-price"><span class="old-price_value">{{ product.get_price_html }} &#8381;</span><span class="sale-percent">10%</span></div>
+                <div class="product-current-price">{{ product.get_price_html }} &#8381;</div>
             </div>
-            <div class="product-sizes">
-                <div class="product-sizes-header">
-                    <div class="product-sizes-name">Выберите размер</div>
-                    <a class="product-sizes-table" href="">Таблица размеров</a>
+            {% if product_variations %}
+                <div class="product-sizes">
+                    <div class="product-sizes-header">
+                        <div class="product-sizes-name">Выберите размер</div>
+                        <a class="product-sizes-table" href="">Таблица размеров</a>
+                    </div>
+                    <div class="product-sizes-content">
+                        <label class="control control-radio size-item" v-for="unicSize in uniqueProductVariations" v-cloak>
+                            <input v-model="productID" @change="selectSize" type="radio" name="size" :value="unicSize.id" />
+                            <div class="control_indicator size-item__label">(( unicSize.value ))</div>
+                        </label> 
+                    </div>
                 </div>
-                <div class="product-sizes-content">
-                    {% for item in 0..5 %}
-                    <label class="control control-radio">
-                        <input type="radio" name="radio" />
-                        <div class="control_indicator">48</div>
-                    </label>
-                    {% endfor %}
-                </div>
-            </div>
+            
+            {# <div class="product-colors">
+                <div class="product-colors-name">Выберите цвет</div>
+                <select name="product_color" v-model="currentColor">
+                    <template v-for="unicColor in unicColors">
+                        <option  v-cloak :value="unicColor">(( unicColor ))</option>
+                    </template>
+                </select>
+            </div> #}
+            {% endif %}
             <div class="product-info-content">
                 <p>Состав: 55% Хлопок, 45% ПЭ</p>
             </div>
             <div class="product-buttons">
-                <a class="btn-cart" href="">Добавить в корзину</a>
+                <a class="btn-cart" ref="button_cart" href="" data-id="{{ product.id }}" v-on:click.prevent="addCart(productID)">Добавить в корзину</a>
+                <favorite :product-id="{{product.id}}" textbutton="В избранное" color="808D9A" :favorites="favorites"></favorite>
             </div>
             <div class="product-description">
                 {{ post.content }}
@@ -53,20 +63,21 @@
     </div>
     <div class="collections_block">
         <div class="collections_block-header">
-            <div class="collections_block-title">Похожие товары</div>
+            <div class="collections_block-title">Возможно вам понравится</div>
         </div>
         <div class="collections-content _single-product">
             <div class="collections-content-inner">
                 <div class="collections-slick">
-                    {% for item in 0..5 %}
+                    {% for post in random_prod %}
                     <div class="collections-slick-content">
-                        <a class="catalog-content-item" href="{{ site.link }}/product/bluza-obemnaya-iz-printovannoj-viskozy/" style="background-image: url({{ site.theme.link }}/assets/images/collection.jpg);">
+                        <a class="catalog-content-item" href="{{ post.link }}">
+                            <img src="{{ post.thumbnail.src }}" alt="">
                             <div class="catalog-content-item-name">
-                                <h4>Блуза объемная из принтованной вискозы</h4>
+                                <h4>{{ post.title }}</h4>
                             </div>
                             <div class="catalog-content-item-price">
                                 <div class="catalog_old-price">14 000 руб</div>
-                                <div class="catalog_current-price">14 000 руб</div>
+                                <div class="catalog_current-price">{{ post._price|apply_filters('wc_price') }} руб</div>
                             </div>
                         </a>
                     </div>

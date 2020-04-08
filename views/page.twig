@@ -1,0 +1,20 @@
+{% include "partials/header.twig" %}
+<main class='main-content single'>
+	{{ function('woocommerce_breadcrumb') }}
+	<div class="page-content page-content--default container">
+		<h1 class="default-page-title">{{ post.title }}</h1>
+        {{ post.get_content|shortcodes }}
+
+        <div class="default-gallery">
+        	{% for image in gallery %}
+            <a data-fancybox="g1" href="{{ Image(image) }}" class="default-gallery-item">
+                <img src="{{ Image(image) }}" alt="">
+            </a>
+            {% endfor %}
+        </div>
+
+        {{ after_text }}
+    </div>
+	
+</main>
+{% include "partials/footer.twig" %}

@@ -1,0 +1,28 @@
+{% include "partials/header.twig" %}
+<main class='main-content'>
+	{{ function('woocommerce_breadcrumb') }}
+	<div class="page-content page-content--default container">
+		<h1 class="default-page-title">{{ post.title }}</h1>
+		<div class="news-archive">
+			{% if posts is not empty  %}
+                    {% for post in posts %}
+			<div class="news-archive-item">
+				<div class="news-archive-item-img">
+					<a href="{{ post.link }}">
+						<img src="{{ post.thumbnail.src }}" alt="">
+					</a>
+				</div>
+				<div class="news-archive-item-info">
+					<a href="{{ post.link }}" class="news-archive-item-name"><h4>{{ post.title }}</h4></a>
+					<div class="news-archive-item-text">{{ post.preview.read_more('') }}</div>
+					<div class="news-archive-item-link"><a href="{{ post.link }}">Подробнее</a></div>
+				</div>
+			</div>
+			{% endfor %}
+                {% else %}
+                    <div class="not-content">Категория пуста</div>
+                {% endif %}
+		</div>
+	</div>
+</main>
+{% include "partials/footer.twig" %}

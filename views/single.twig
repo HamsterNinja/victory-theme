@@ -1,0 +1,51 @@
+{% include "partials/header.twig" %}
+<main class='main-content single'>
+	{{ function('woocommerce_breadcrumb') }}
+	<div class="news-page page-content page-content--default container">
+		<div class="news-page-left">
+		<h1 class="default-page-title">{{ post.title }}</h1>
+        {{ post.get_content|shortcodes }}
+        <div class="default-gallery">
+        	{% for image in gallery %}
+            <a data-fancybox="g1" href="{{ Image(image) }}" class="default-gallery-item">
+                <img src="{{ Image(image) }}" alt="">
+            </a>
+            {% endfor %}
+        </div>
+
+        {{ after_text }}
+        </div>
+        <div class="news-page-right">
+        	<div class="news-page-right-name">Другие новости</div>
+        	<div class="news-page-right-items">
+        		<a href="http://ci76366.tmweb.ru/novost/" class="other-news-item">
+        			<div class="other-news-item-img"><img src="{{ site.theme.link }}/assets/images/news2.jpg" alt=""></div>
+        			<div class="other-news-item-name">УВАЖАЕМЫЕ ПАРТНЁРЫ! ПРИГЛАШАЕМ ВАС 21 ФЕВРАЛЯ В ШОУРУМ НА ДЕНЬ БАЙЕРА.</div>
+        		</a>
+        		<a href="http://ci76366.tmweb.ru/novost/" class="other-news-item">
+        			<div class="other-news-item-img"><img src="{{ site.theme.link }}/assets/images/news2.jpg" alt=""></div>
+        			<div class="other-news-item-name">УВАЖАЕМЫЕ ПАРТНЁРЫ! ПРИГЛАШАЕМ ВАС 21 ФЕВРАЛЯ В ШОУРУМ НА ДЕНЬ БАЙЕРА.</div>
+        		</a>
+        	</div>
+        </div>
+        <div class="news-page-bottom">
+        	<div class="news-page-bottom-name">Читайте так же</div>
+        	<div class="news-page-bottom-items">
+        		<a href="http://ci76366.tmweb.ru/novost/" class="news-page-bottom-item">
+        			<div class="news-page-bottom-item-img"><img src="{{ site.theme.link }}/assets/images/news2.jpg" alt=""></div>
+        			<div class="news-page-bottom-item-name">УВАЖАЕМЫЕ ПАРТНЁРЫ! ПРИГЛАШАЕМ ВАС 21 ФЕВРАЛЯ В ШОУРУМ НА ДЕНЬ БАЙЕРА.</div>
+        		</a>
+        		<a href="http://ci76366.tmweb.ru/novost/" class="news-page-bottom-item">
+        			<div class="news-page-bottom-item-img"><img src="{{ site.theme.link }}/assets/images/news2.jpg" alt=""></div>
+        			<div class="news-page-bottom-item-name">УВАЖАЕМЫЕ ПАРТНЁРЫ! ПРИГЛАШАЕМ ВАС 21 ФЕВРАЛЯ В ШОУРУМ НА ДЕНЬ БАЙЕРА.</div>
+        		</a>
+        		<a href="http://ci76366.tmweb.ru/novost/" class="news-page-bottom-item">
+        			<div class="news-page-bottom-item-img"><img src="{{ site.theme.link }}/assets/images/news2.jpg" alt=""></div>
+        			<div class="news-page-bottom-item-name">УВАЖАЕМЫЕ ПАРТНЁРЫ! ПРИГЛАШАЕМ ВАС 21 ФЕВРАЛЯ В ШОУРУМ НА ДЕНЬ БАЙЕРА.</div>
+        		</a>
+        	</div>
+        </div>
+    </div>
+
+</main>
+{% include "partials/footer.twig" %}
