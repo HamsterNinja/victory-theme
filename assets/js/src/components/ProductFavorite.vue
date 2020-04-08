@@ -15,9 +15,9 @@
       if (this.$root.favorite_products.length === 0) {
             let productIDs = this.favorites.join();
             if (productIDs) {
-                const responseFavoriteProducts = await fetch(`${SITEDATA.url}/wp-json/wc/v3/products/?include=${productIDs}`);
+                const responseFavoriteProducts = await fetch(`${SITEDATA.url}//wp-json/amadreh/v1/get-products/?include=${productIDs}`);
                 const dataFavoriteProducts = await responseFavoriteProducts.json();
-                this.$root.favorite_products = dataFavoriteProducts;  
+                this.$root.favorite_products = dataFavoriteProducts.data.posts;  
                 
             }
       }

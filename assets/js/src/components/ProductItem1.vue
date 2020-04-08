@@ -1,7 +1,6 @@
 <template v-if="product.stock_status == 'instock'">
     <a class="catalog-content-item" :href="product.permalink">
-		<div class="catalog-content-item-img"> 
-            <div v-if="product.acf.new == true" class="new-hit"><div class="new-tag">New</div></div>
+		<div class="catalog-content-item-img">
 			<img v-if="product.images[0].woocommerce_single" :src="product.images[0].woocommerce_single" :alt="product.name"/>
             <img v-else :src="template_url + '/assets/images/placeholder-images.webp'" :alt="product.name">
 		</div>

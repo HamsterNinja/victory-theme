@@ -516,7 +516,7 @@ ul.category-list-menu-content li a {
 .catalog-content-inner {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(235px, 1fr));
-    grid-gap: 7px;
+    grid-gap: 15px;
     padding-right: 50px;
     z-index: 10;
 }
@@ -877,6 +877,10 @@ button.button.button--favorites-clear {
     font-size: 14px;
     border: none;
     outline: none;
+    margin-bottom: 20px;
+}
+ul.pagination.list {
+    text-align: center;
 }
 @import 'pages/home';
 @import 'components/buttons';
