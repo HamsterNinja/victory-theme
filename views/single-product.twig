@@ -57,7 +57,7 @@
                 <favorite :product-id="{{product.id}}" textbutton="В избранное" color="808D9A" :favorites="favorites"></favorite>
             </div>
             <div class="product-description">
-                {{ post.content }}
+                {{ post.preview.length(999).read_more('') }}
             </div>
         </div>
     </div>
