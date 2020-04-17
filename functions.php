@@ -241,6 +241,7 @@ function add_styles() {
         if(is_admin()) return false; 
         wp_enqueue_style( 'materialdesignicons', 'https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css' );
         time_enqueuer('onepagescrollcss', '/assets/css/onepagescroll.css', 'style', false, 'all');   
+        time_enqueuer('vuitify', '/assets/css/vuitify.css', 'style', false, 'all');
         time_enqueuer('main', '/assets/css/main.css', 'style', false, 'all');    
         time_enqueuer('mediacss', '/assets/css/media-requests.css', 'style', false, 'all');   
 }

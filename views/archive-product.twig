@@ -6,6 +6,74 @@
 				<h1>Каталог</h1>
 			</div>
 				{{ function('woocommerce_breadcrumb') }}
+
+				<v-app>
+		
+				<div class="catalog-filter">
+					<div class="catalog-filter-item">
+						<div class="catalog-filter-item-name">Цена</div>
+						<div class="catalog-filter-item-content">
+							<v-range-slider
+							v-model="price"
+							v-on:change="applyFilter('catalogPrices', $event)"
+							min="100"
+							max="15000"
+							color="#01625b"
+							track-color="#e8e3e9"
+							thumb-color="#000"
+							></v-range-slider>
+							<div class="slider-values">
+								<div class="slider-value">от (( price[0] ))</div>
+								<div class="slider-value">до (( price[1] ))</div>
+							</div>
+						</div>
+					</div>
+					<div class="catalog-filter-item">
+						<div class="catalog-filter-item-name">Размер</div>
+						<div class="catalog-filter-item-content" id="size-combobox">
+							<v-combobox
+								v-model="chips"
+								:items="items"
+								multiple
+								small-chips
+								attach="#size-combobox"
+								v-on:change="applyFilter('catalogSizes', $event)"
+								>
+									<template v-slot:selection="{ attrs, item, select, selected }">
+										<v-chip
+										label
+										v-bind="attrs"
+										color="#01625b"
+      									text-color="white"
+										:input-value="selected"
+										close
+										close-icon="mdi-close"
+										@click="select"
+										@click:close="remove(item)"
+										>
+										<span>(( item ))</span>
+										</v-chip>
+									</template>
+							</v-combobox>
+						</div>
+					</div>
+					<div class="catalog-filter-item">
+						<div class="catalog-filter-item-name">Сортировка</div>
+						<div class="catalog-filter-item-content" id="sort-block">
+							<v-select
+								:items="sortItems"
+								label="Сортировка"
+								item-text="label"
+								item-value="value"
+								attach="#sort-block"
+								solo
+								v-model="sort"
+								v-on:change="applyFilter('catalogSort', $event)"
+							></v-select>
+						</div>
+					</div>
+				</div>
+				</v-app>
 		</div>
 		<product-list></product-list>
 

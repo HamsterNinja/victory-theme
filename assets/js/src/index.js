@@ -58,6 +58,14 @@ document.addEventListener('DOMContentLoaded', () => {
             delimiters: ["((", "))"],
             data() {
                 return {
+                    sortItems: [
+                        { label: 'По умолчанию', value: 'date_desc' },
+                        { label: 'По убыванию цены', value: 'price_desc' },
+                        { label: 'По возрастанию цены', value: 'price_asc' },
+                    ],
+                    sort: 'date_desc',
+                    price: [100, 15000],
+                    chips: [],
                     items: SITEDATA.sizes,
                     loading: true,
                     adding: false,
@@ -76,6 +84,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     'pageNum',
                     'productCount',
                     'favorites',
+                    'max_price_per_product_cat',
+                    'min_price_per_product_cat',
                 ]),
                 currentProductVariation() {
                     if(this.productVariations.length !== 0){
@@ -185,6 +195,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
+ $(document).ready(function () {
 $('.btn-hamburger').click(function(e){
   $(this).toggleClass('active');
   $('.hidden-menu_block').toggleClass('active');
@@ -260,7 +271,7 @@ $('.product-slick-nav').slick({
   focusOnSelect: true,
   vertical: true
 });
-
+if ($(".home").length){
     if ($(window).outerWidth() > 1025) {
         onepagescroll('.main-content.pages',{
         
@@ -282,3 +293,6 @@ $('.product-slick-nav').slick({
 
 if (window.getComputedStyle(document.body).mixBlendMode == undefined)
     $(".ops-navigation").addClass("curtain");
+}
+
+ });
