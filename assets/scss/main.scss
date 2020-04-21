@@ -37,24 +37,27 @@ section{
 section.block-with-video.ops-page {
     overflow: hidden;
 }
-.block-with-video iframe {
+.block-with-video video {
     width: 100%;
-    height: 115%;
+    height: 114%;
     z-index: 100;
-}
-.video-decore {
+    top: -50px;
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
     z-index: 1;
-    background-color: rgba(0,0,0,0.2);
 }
+// .video-decore {
+//     position: absolute;
+//     top: 0;
+//     left: 0;
+//     right: 0;
+//     bottom: 0;
+//     display: flex;
+//     flex-wrap: wrap;
+//     align-items: center;
+//     justify-content: center;
+//     z-index: 2;
+//     background-color: rgba(0,0,0,0.2);
+// }
 .ops-navigation {
     left: 10px;
     right: auto;

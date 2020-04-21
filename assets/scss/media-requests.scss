@@ -262,7 +262,9 @@ header.main-header {
     width: calc(100% - 56px);
     margin-left: 20px;
 }
-
+.block-with-video video {
+    top: 0;
+}
 }
 
 @media(max-width: 700px){
