@@ -101,14 +101,6 @@
     font-size: 0;
     margin-left: 0;
   }
-  .js-search {
-    background-position: 50%;
-    padding: 8px;
-    width: 16px;
-    margin-bottom: 0;
-    font-size: 0;
-    margin-right: 20px;
-  }
   .contacts-link {
     margin-right: 20px;
     font-size: 0;
@@ -252,17 +244,11 @@
     padding: 10px 0px 10px 15px;
   }
   .main-header-left {
-    width: calc(100% - 140px);
+    width: calc(100% - 170px);
   }
   .main-header-logo {
     width: calc(100% - 56px);
     margin-left: 20px;
-  }
-  .main-header-right {
-    width: 125px;
-  }
-  a.user-cart {
-    margin-right: 20px;
   }
 }
 @media (max-width: 700px) {
@@ -338,8 +324,14 @@
   .product-slick-nav .slick-list {
     height: auto !important;
   }
+  .hidden-search_block-content form .search-text {
+    font-size: 20px;
+  }
 }
 @media (max-width: 460px) {
+  .main-header-logo {
+    display: none;
+  }
   .main-page-title {
     font-size: 30px;
     padding-left: 0;
@@ -366,6 +358,9 @@
   }
   .about_company-block-text p {
     font-size: 14px;
+  }
+  .about-us_block-link a {
+    padding: 18px 50px;
   }
   .catalog-content-header {
     padding: 35px 12px;

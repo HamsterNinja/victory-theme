@@ -3,7 +3,6 @@ header.main-header {
     top: 0;
     left: 0;
     right: 0;
-    background-color: #fff;
     height: 77px;
 }
 .header-left {
@@ -34,6 +33,7 @@ body.home .header-left {
     z-index: 15;
     background-color: #fff;
     padding: 20px 50px 20px;
+    z-index: 99;
 }
 body.home .header-top{
     background-color: transparent;
@@ -55,12 +55,25 @@ body.home .header-top{
 body.home .main-header-left {
     filter: brightness(1);
 }
+.main-header-user {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+.js-search {
+    cursor: pointer;
+    width: 16px;
+    margin-bottom: 0;
+    font-size: 0;
+    margin-right: 14px;
+    filter: brightness(5);
+}
 a.user-lk {
-    margin-right: 30px;
+    margin-right: 15px;
     filter: brightness(0);
 }
 a.user-cart {
-    margin-right: 40px;
+    margin-right: 15px;
     filter: brightness(0);
 }
 body.home .main-header-left,
@@ -226,4 +239,66 @@ body.home .hidden-menu_block.active {
     font-weight: 600;
     color: #959595;
     text-decoration: none;
+}
+
+.hidden-search_block{
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .5s, visibility .5s;
+    position: fixed;
+    background: white;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 20;
+    padding-top: 90px;
+}
+.hidden-search_block .container{
+    margin: 0 auto;
+}
+.hidden-search_block.active{
+    opacity: 1;
+    visibility: visible;
+}
+.hidden-block-title{
+    padding-top: 75px;
+    font-size: 35px;
+    margin-bottom: 100px;
+    max-width: 740px;
+    width: 100%;
+    margin: 0 auto 100px;
+}
+.hidden-search_block-content{}
+.hidden-search_block-content form{
+    max-width: 740px;
+    width: 100%;
+    margin: 0 auto;
+    position: relative;
+}
+.hidden-search_block-content form .search-text{
+    padding: 0 0 10px 0;
+    border-radius: 0;
+    border: none;
+    border-bottom: 1px solid #000;
+    display: block;
+    width: 100%;
+    font-size: 30px;
+    outline: none;
+}
+.hidden-search_block-content form .search-button{
+    font-size: 15px;
+    font-weight: normal;
+    color: #fff;
+    background-color: #000;
+    border: 1px solid #000;
+    text-decoration: none;
+    display: block;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    width: 90px;
+    outline: none;
+
 }
