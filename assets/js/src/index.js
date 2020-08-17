@@ -96,7 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 },
                 uniqueProductVariations(){
-                    return this.productVariations.filter(variation => variation.label !== 'образец');
+                    return this.productVariations.filter(variation => variation.label !== 'образец' && variation.value !== 'null');
                 },
                 unicSizes() {
                     let unique = [...new Set(this.productVariations.map(x => x.value))];

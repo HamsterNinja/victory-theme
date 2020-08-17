@@ -27,9 +27,19 @@ if ( class_exists( 'WooCommerce' ) ) {
     Timber\Integrations\WooCommerce\WooCommerce::init();
 }
 
-add_image_size( 'blog_image', 438, 257, true ); 
-add_image_size( 'catalog_image', 360, 370, true ); 
-add_image_size( 'catalog_image_x2', 720, 405, true ); 
+function remove_unused_image_sizes() {
+
+    $allowed_sizes = array( 'full' );
+    $registered_sizes = get_intermediate_image_sizes();
+
+    foreach ( $registered_sizes as $size ) {
+        if ( ! in_array( $size, $allowed_sizes ) ) {
+            remove_image_size( $size );
+        }
+    }
+}
+
+add_action('init', 'remove_unused_image_sizes');
 
 remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
 remove_action( 'admin_print_scripts', 'print_emoji_detection_script' );
@@ -70,6 +80,8 @@ register_nav_menus(array(
     'spring_menu' => 'Весна-Лето',
     'winter_menu' => 'Осень-Зима',
     'sale_menu' => 'SALE',
+    'company_menu' => 'О компании',
+    'buyer_menu' => 'Покупателям',
 ));
 
 function add_async_forscript($url)
@@ -158,7 +170,9 @@ add_action('wp_footer', 'add_scripts');
 function add_scripts() {
     time_enqueuer('jquerylatest', '/assets/js/vendors/jquery-3.2.0.min.js', 'script', true);
     time_enqueuer('slick', '/assets/js/vendors/slick.js', 'script', true);
+    time_enqueuer('lmenujs', '/assets/js/src/left-menu.js', 'script', true);
     time_enqueuer('onepagescrolljs', '/assets/js/vendors/onepagescroll.js', 'script', true);
+    time_enqueuer('sliders', '/assets/js/sliders.js', 'script', true);
     time_enqueuer('app-main', '/assets/js/main.bundle.js', 'script', true);
    
     $queried_object = get_queried_object();
@@ -244,6 +258,7 @@ function add_styles() {
         time_enqueuer('vuitify', '/assets/css/vuitify.css', 'style', false, 'all');
         time_enqueuer('main', '/assets/css/main.css', 'style', false, 'all');    
         time_enqueuer('mediacss', '/assets/css/media-requests.css', 'style', false, 'all');   
+        time_enqueuer('customcss', '/assets/css/custom.css', 'style', false, 'all');   
 }
 add_action('wp_print_styles', 'add_styles');
 
@@ -272,12 +287,16 @@ class StarterSite extends TimberSite {
     function add_to_context( $context ) {
         $context['spring_menu'] = new TimberMenu('spring_menu');
         $context['winter_menu'] = new TimberMenu('winter_menu');
-        $context['sale_menu'] = new TimberMenu('sale_menu');       
+        $context['sale_menu'] = new TimberMenu('sale_menu');
+        $context['company_menu'] = new TimberMenu('company_menu');
+        $context['buyer_menu'] = new TimberMenu('buyer_menu');    
         $context['gallery'] = get_field('галерея');
         $context['after_text'] = get_field('текст_под_галереей');
         $context['banners'] = get_field('баннеры', 'options');
         $context['new'] = get_field('new');
-        
+        $context['home_cats'] = get_field('категории', 'options');
+        $context['address1'] = get_field('адрес_шоу-рум', 'options');
+        $context['address2'] = get_field('адрес_форменная_одежда_ржд', 'options');
 
         global $product; //Если не объявлен ранее. Не уверен в необходимости.
         $categories = get_the_terms( $post->ID, 'product_cat' );
@@ -297,13 +316,44 @@ class StarterSite extends TimberSite {
         );  
       $context['other_prod'] = Timber::get_posts($args);
 
-        $args = array(
+
+    
+    $args_variation = array(
+        'post_status' => 'publish',
+        'post_type'     => 'product_variation',
+        'fields'         => 'id=>parent',
+        'posts_per_page' => -1,
+    );
+
+    $args_variation['tax_query'] =  array('relation' => 'AND');
+    $args_variation['meta_query'] =  array('relation' => 'AND');
+
+    $request_params = array(
+        'key' => '_stock_status',
+        'value' => 'instock',
+    );
+    array_push($args_variation['meta_query'], $request_params); 
+
+    $q = new WP_Query($args_variation);
+    $parent_ids = wp_list_pluck( $q->posts, 'post_parent' );
+                
+    $args = array(
+        'post_status' => 'publish',
         'post_type' => 'product',
         'posts_per_page' => 8,
-        'post_parent' => 0,
-        'orderby' => 'rand'
-      );
-      $context['random_prod'] = Timber::get_posts($args);
+        'orderby' => 'rand' 
+    );
+
+    if($parent_ids){
+        $args['post__in'] = $parent_ids;
+    }
+
+    if($include){
+        $args['post__in'] = explode( ',', $include);
+    }
+    $context['random_prod'] = Timber::get_posts($args);
+
+
 
       $args = array(
             'post_type' => 'product',
@@ -511,7 +561,88 @@ function your_prefix_wc_remove_uncategorized_from_breadcrumb( $crumbs ) {
 
 add_filter( 'woocommerce_get_breadcrumb', 'your_prefix_wc_remove_uncategorized_from_breadcrumb' );
 
+function product_render($post) {
+    setup_postdata( $post );
+    $product = wc_get_product($post->ID);
+    
+	$context['id'] = $product->get_id();
+	$context['title'] = $product->get_title();;
+	$context['link'] = $product->get_permalink();
+	$context['thumbnail'] = get_the_post_thumbnail_url($product->get_id(), 'medium');
+    $context['price'] = $product->get_price_html();
+    
+	Timber::render('partials/product-item.twig', $context);
+}
+
+add_filter('woocommerce_currency_symbol', 'change_existing_currency_symbol', 10, 2);
+
+
 
 include_once(get_template_directory() .'/include/acf-fields.php');
 include_once(get_template_directory() .'/include/woocommerce-theme-settings.php');
 include_once(get_template_directory() .'/include/rest-api.php');
+
+//Запрет обновления плагина
+add_filter( 'site_transient_update_plugins', 'filter_plugin_updates' );
+function filter_plugin_updates( $value ) {
+	unset( $value->response['woocommerce-and-1centerprise-data-exchange/woocommerce-1c.php'] );
+	return $value;
+}
+
+add_filter( 'manage_edit-product_columns', 'show_product_order',15 );
+function show_product_order($columns){
+   $columns['stock_goods'] = 'Запасы'; 
+   return $columns;
+}
+
+function get_stock_variations_from_product($product_id){
+    $product = wc_get_product($product_id);
+    $variations = $product->get_available_variations();
+    foreach($variations as $variation){
+         $variation_id = $variation['variation_id'];
+         $variation_obj = new WC_Product_variation($variation_id);
+         $stock += $variation_obj->get_stock_quantity();
+    }
+    return $stock;
+}
+
+add_action( 'manage_product_posts_custom_column', 'wpso23858236_product_column_stock_goods', 10, 2 );
+function wpso23858236_product_column_stock_goods( $column, $postid ) {
+    if ( $column == 'stock_goods' ) {
+        echo get_stock_variations_from_product($postid);
+    }
+}
+
+// add_filter( "manage_edit-product_sortable_columns", 'custom_woo_admin_sort' );
+// function custom_woo_admin_sort( $columns )
+// {
+//     $custom = array(
+//         'stock_goods'    => 'stock_goods',
+//     );
+//     return wp_parse_args( $custom, $columns );
+// }
+
+// add_action( 'pre_get_posts', 'misha_total_sales_4' );
+// function misha_total_sales_4( $query ) {
+ 
+// 	if( !is_admin() || empty( $_GET['orderby']) || empty( $_GET['order'] ) )
+// 		return;
+ 
+// 	if( $_GET['orderby'] == 'stock_goods' ) {
+// 		$query->set('meta_key', 'total_sales' );
+// 		$query->set('orderby', 'meta_value_num');
+// 		$query->set('order', $_GET['order'] );
+// 	}
+ 
+// 	return $query;
+ 
+// }
+
+/**
+ * Change the breadcrumb separator
+ */
+add_filter( 'woocommerce_breadcrumb_defaults', 'wcc_change_breadcrumb_delimiter' );
+function wcc_change_breadcrumb_delimiter( $defaults ) {
+	$defaults['delimiter'] = ' <svg xmlns="http://www.w3.org/2000/svg" width="8px" viewBox="0 0 512.002 512.002"><path d="M388.425 241.951L151.609 5.79c-7.759-7.733-20.321-7.72-28.067.04-7.74 7.759-7.72 20.328.04 28.067l222.72 222.105-222.728 222.104c-7.759 7.74-7.779 20.301-.04 28.061a19.8 19.8 0 0014.057 5.835 19.79 19.79 0 0014.017-5.795l236.817-236.155c3.737-3.718 5.834-8.778 5.834-14.05s-2.103-10.326-5.834-14.051z"/></svg> ';
+	return $defaults;
+}

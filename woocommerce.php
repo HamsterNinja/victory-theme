@@ -24,24 +24,28 @@ if ( is_singular( 'product' ) ) {
     $context['sale_price'] = $product->get_sale_price();
 
     $attributes = $product->get_attributes();
-    $product_attributes = [];
-    foreach ( $attributes as $attribute ) {
-        $name = $attribute->get_name();
-        $taxonomy = get_taxonomy( $name );
-        $labels = get_taxonomy_labels( $taxonomy );
-        $singular_name = $labels->singular_name;
-        $attribute_object = new stdClass();
-        $attribute_object->singular_name = $singular_name;   
-        $attribute_values = get_the_terms( $product->ID, $name );        
-        if( is_array( $attribute_values ) ){
-            foreach( $attribute_values as $current_term ){
-                $attribute_object->link = get_term_link($current_term->term_id, $current_term->taxonomy);
-                $attribute_object->name = $current_term->name;
-            }
-        }
-        array_push($product_attributes, $attribute_object);       
-    }
-    $context['product_attributes'] = $product_attributes;
+                $product_attributes = [];
+                foreach ( $attributes as $attribute ) {
+                    $name = $attribute->get_name();
+                    $taxonomy = get_taxonomy( $name );
+                    $labels = get_taxonomy_labels( $taxonomy );
+                    $singular_name = $labels->singular_name;
+                    $attribute_object = (object)[];
+                    $attribute_object->singular_name = $singular_name;
+                    $attribute_values = get_the_terms( $product->ID, $name );
+                    $attribute_values_array = [];
+                    if( is_array( $attribute_values ) ){
+                    foreach( $attribute_values as $current_term ){
+                    $attribute_single_object = (object)[];
+                    $attribute_single_object->link = get_term_link($current_term->term_id, $current_term->taxonomy);
+                    $attribute_single_object->value = $current_term->name;
+                    $attribute_values_array[] = $attribute_single_object;
+                    }
+                    }
+                    $attribute_object->values = $attribute_values_array;
+                    array_push($product_attributes, $attribute_object);
+                    }
+                $context['product_attributes'] = $product_attributes;
 
     $args_product_variation = array(
         'post_type'     => 'product_variation',

@@ -37,6 +37,7 @@ if ( is_home() ) {
 	$new_products_ids = wp_list_pluck( $new_products, 'ID' );                    
 	$context['new_products'] = $new_products;
 	$context['new_products_ids'] = $new_products_ids;
+	$context['banners'] = get_field('home_banners', 'options');
 
 	Timber::render( $templates, $context );
 }
