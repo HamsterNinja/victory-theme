@@ -16,7 +16,12 @@
             <button class="modal-window__close"></button>
             <div class="modal-window__content">
                 <div class="thank_title">Товар добавлен в корзину</div>
-                {% do action('modal_cart_action') %}
+                <div class="added-product-container">
+                    <span>Наименование товара</span>
+                    <span>Размер</span>
+                    <span>стоимость</span>
+                </div>
+
                 <div class="modal-buttons">
                     <div class="modal-close-button"><a href="">Продолжить покупки</a></div>
                     <div class="modal-order-button">
