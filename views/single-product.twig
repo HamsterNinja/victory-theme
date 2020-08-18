@@ -40,7 +40,7 @@
                 <div class="product-sizes" v-if="uniqueProductVariations.length > 0">
                     <div class="product-sizes-header">
                         <div class="product-sizes-name">Выберите размер</div>
-                        <a class="product-sizes-table" href="">Таблица размеров</a>
+                        <a data-fancybox="sizes_image" class="product-sizes-table" href="{{ sizes_image }}">Таблица размеров</a>
                     </div>
                     <div class="product-sizes-content">
                         <label class="control control-radio size-item" v-for="unicSize in uniqueProductVariations" v-cloak>

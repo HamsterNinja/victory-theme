@@ -308,6 +308,10 @@ class StarterSite extends TimberSite {
         $context['address1'] = get_field('адрес_шоу-рум', 'options');
         $context['address2'] = get_field('адрес_форменная_одежда_ржд', 'options');
 
+
+        $context['facebook'] = 'https://www.facebook.com/victoriaandreyanovaofficial';
+        $context['instagram'] = 'https://www.instagram.com/victoria_andreyanova_official';
+
         global $product; //Если не объявлен ранее. Не уверен в необходимости.
         $categories = get_the_terms( $post->ID, 'product_cat' );
         $args = array(

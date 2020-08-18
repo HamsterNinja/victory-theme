@@ -144,6 +144,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         console.error('ошибка добавления товара');
                     } else if (jsonResponse.success) {
                         this.$refs.button_cart.innerText = "Товар добавлен"
+                        
                         this.updateFragment();
                     }
                     this.adding = false;
