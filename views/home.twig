@@ -100,7 +100,7 @@
         <div class="footer-content">
             <div class="footer-menu">
                 <div class="footer-menu-item">
-                    <div class="footer-menu-name">О КОМПАНИИ</div>
+                    <div class="footer-menu-name"><a href="{{ site.link }}/about-company">О компании</a></div>
                     <ul>
                     {% for item in company_menu.get_items %}
                         <li itemprop="name" class="{{item.class}}">
@@ -110,7 +110,7 @@
                 </ul>
                 </div>
                 <div class="footer-menu-item">
-                    <div class="footer-menu-name">Покупателям</div>
+                    <div class="footer-menu-name"><a href="{{ site.link }}/buyers">Покупателям</a></div>
                     <ul>
                     {% for item in buyer_menu.get_items %}
                     <li itemprop="name" class="{{item.class}}">
@@ -121,7 +121,7 @@
                     </ul>
                 </div>
                 <div class="footer-menu-item">
-                    <div class="footer-menu-name">МОЙ КАБИНЕТ</div>
+                    <div class="footer-menu-name"><a href="{{ site.link }}/my-account">Мой кабинет</a></div>
                     <ul>
                         <li itemprop="name" class="">
                             <a itemprop="url" href="{{ site.link }}/my-account">Войти</a>
@@ -156,7 +156,7 @@
             </div>
             <div class="under-footer-menu">
                 <ul>
-                    <li><a href="{{ site.link }}/sitemap">Карта сайта</a></li>
+                    <li class="hidden"><a href="{{ site.link }}/sitemap">Карта сайта</a></li>
                 </ul>
             </div>
         </div>

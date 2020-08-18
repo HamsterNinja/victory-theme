@@ -5,6 +5,8 @@
     </div>
     <div class="catalog-content-item-price">
         <!-- <div class="catalog_old-price">14 000 руб</div> -->
-        <div class="catalog_current-price">{{ price }} <span>₽</span></div>
+        {% if price %}
+            <div class="catalog_current-price">{{ price }} <span>₽</span></div>
+        {% endif %}
     </div>
 </a>

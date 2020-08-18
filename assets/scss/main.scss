@@ -346,11 +346,17 @@ body.home footer.main-footer {
 }
 .footer-menu-name {
     font-size: 12px;
-    color: #959595;
-    font-weight: 600;
+    color: #000;
+    font-weight: bold;
     margin-bottom: 14px;
     text-transform: uppercase;
 }
+
+.footer-menu-name a {
+    color: #000;
+    text-decoration: none;
+}
+
 .footer-menu-item ul {
     list-style: none;
     margin: 0;
@@ -363,7 +369,7 @@ body.home footer.main-footer {
 .footer-menu-item ul li a {
     font-size: 12px;
     font-weight: 600;
-    color: #959595;
+    color: #000;
     text-decoration: none;
 }
 .footer-menu-item ul li a:hover {
@@ -521,12 +527,20 @@ ul.category-list-menu-content li a {
     margin-bottom: 25px;
     font-size: 12px;
     color: #2e3033;
-    text-transform: uppercase;
     width: 100%;
 }
 .woocommerce-breadcrumb a {
     color: #2e3033;
     text-decoration: none;
+    text-transform: capitalize;
+}
+
+.woocommerce .woocommerce-breadcrumb{
+    display: flex;
+}
+
+.woocommerce .woocommerce-breadcrumb svg {
+    margin: 0 5px;
 }
 
 .catalog-content-inner {
@@ -1361,7 +1375,7 @@ a.other-news-item {
     transform: translateX(-50%);
 }
 
-.alert-container{
+.alert-container {
     padding: 20px;
     background-color: #ff9800;
     color: white;
@@ -1385,6 +1399,17 @@ a.other-news-item {
 /* When moving the mouse over the close button */
 .closebtn:hover {
     color: black;
+}
+
+.hidden{
+    visibility: hidden
+}
+
+.hidden-menu_block-item ul li:first-child a {
+    font-size: 12px;
+    font-weight: bold;
+    color: #000;
+    text-decoration: none;
 }
 
 @import "pages/home";

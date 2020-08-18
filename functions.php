@@ -82,6 +82,9 @@ register_nav_menus(array(
     'sale_menu' => 'SALE',
     'company_menu' => 'О компании',
     'buyer_menu' => 'Покупателям',
+    'new_collection_menu' => 'Каталог NEW COLLECTION',
+    'specially_menu' => 'Каталог Specially',
+    'parole_menu' => 'Каталог PAROLE',
 ));
 
 function add_async_forscript($url)
@@ -210,7 +213,8 @@ function add_scripts() {
 
     //TODO: починить блядоразмеры
     $sizes_v1 = TimberHelper::transient( 'sizes_v1', function(){
-        return getAllSizes();
+        // return getAllSizes();
+        return [];
     }, 2600 );
   
     wp_localize_script( 'app-main', 'SITEDATA', array(
@@ -288,6 +292,12 @@ class StarterSite extends TimberSite {
         $context['spring_menu'] = new TimberMenu('spring_menu');
         $context['winter_menu'] = new TimberMenu('winter_menu');
         $context['sale_menu'] = new TimberMenu('sale_menu');
+
+        
+        $context['new_collection_menu'] = new TimberMenu('new_collection_menu');
+        $context['specially_menu'] = new TimberMenu('specially_menu');
+        $context['parole_menu'] = new TimberMenu('parole_menu');
+
         $context['company_menu'] = new TimberMenu('company_menu');
         $context['buyer_menu'] = new TimberMenu('buyer_menu');    
         $context['gallery'] = get_field('галерея');
@@ -613,31 +623,6 @@ function wpso23858236_product_column_stock_goods( $column, $postid ) {
     }
 }
 
-// add_filter( "manage_edit-product_sortable_columns", 'custom_woo_admin_sort' );
-// function custom_woo_admin_sort( $columns )
-// {
-//     $custom = array(
-//         'stock_goods'    => 'stock_goods',
-//     );
-//     return wp_parse_args( $custom, $columns );
-// }
-
-// add_action( 'pre_get_posts', 'misha_total_sales_4' );
-// function misha_total_sales_4( $query ) {
- 
-// 	if( !is_admin() || empty( $_GET['orderby']) || empty( $_GET['order'] ) )
-// 		return;
- 
-// 	if( $_GET['orderby'] == 'stock_goods' ) {
-// 		$query->set('meta_key', 'total_sales' );
-// 		$query->set('orderby', 'meta_value_num');
-// 		$query->set('order', $_GET['order'] );
-// 	}
- 
-// 	return $query;
- 
-// }
-
 /**
  * Change the breadcrumb separator
  */
@@ -645,4 +630,38 @@ add_filter( 'woocommerce_breadcrumb_defaults', 'wcc_change_breadcrumb_delimiter'
 function wcc_change_breadcrumb_delimiter( $defaults ) {
 	$defaults['delimiter'] = ' <svg xmlns="http://www.w3.org/2000/svg" width="8px" viewBox="0 0 512.002 512.002"><path d="M388.425 241.951L151.609 5.79c-7.759-7.733-20.321-7.72-28.067.04-7.74 7.759-7.72 20.328.04 28.067l222.72 222.105-222.728 222.104c-7.759 7.74-7.779 20.301-.04 28.061a19.8 19.8 0 0014.057 5.835 19.79 19.79 0 0014.017-5.795l236.817-236.155c3.737-3.718 5.834-8.778 5.834-14.05s-2.103-10.326-5.834-14.051z"/></svg> ';
 	return $defaults;
+}
+
+add_filter( 'manage_edit-shop_order_columns', 'MY_COLUMNS_FUNCTION' );
+function MY_COLUMNS_FUNCTION( $columns ) {
+	$new_columns = ( is_array( $columns ) ) ? $columns : array();
+  	unset( $new_columns[ 'order_actions' ] );
+	
+  	//edit this for your column(s)
+  	//all of your columns will be added before the actions column
+  	$new_columns['MY_COLUMN_ID_1'] = 'Имя клиента';
+	
+  	//stop editing
+  	$new_columns[ 'order_actions' ] = $columns[ 'order_actions' ];
+  	return $new_columns;
+}
+
+add_filter( "manage_edit-shop_order_sortable_columns", 'MY_COLUMNS_SORT_FUNCTION' );
+function MY_COLUMNS_SORT_FUNCTION( $columns ) 
+{
+	$custom = array(
+		'MY_COLUMN_ID_1'    => 'MY_COLUMN_1_POST_META_ID', 
+	);
+	return wp_parse_args( $custom, $columns );
+}
+
+add_action( 'manage_shop_order_posts_custom_column', 'MY_COLUMNS_VALUES_FUNCTION', 2 );
+function MY_COLUMNS_VALUES_FUNCTION( $column ) {
+	global $post;
+	$data = get_post_meta( $post->ID );
+	
+	if ( $column == 'MY_COLUMN_ID_1' ) {
+        $name = $data['_billing_first_name'][0]. ' '.$data['_billing_last_name'][0];
+		echo ( isset( $name ) ? $name : '' );
+	}
 }

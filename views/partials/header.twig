@@ -55,9 +55,9 @@
         <div class="header-left no_bg">
         <div class="category-list-menu">
             <div class="category-list-menu-item">
-                {# <div class="category-list-menu-name">ВЕСНА-ЛЕТО 2020</div> #}
+                <div class="category-list-menu-name">NEW COLLECTION</div>
                 <ul class="category-list-menu-content" itemscope itemtype="http://www.schema.org/SiteNavigationElement">
-                    {% for item in spring_menu.get_items %}
+                    {% for item in new_collection_menu.get_items %}
                     <li itemprop="name" class="{{item.class}}">
                         <a itemprop="url" href="{{ item.link }}">{{ item.title }}</a>
                     </li>
@@ -65,9 +65,20 @@
                 </ul>
             </div>
             <div class="category-list-menu-item">
-                <div class="category-list-menu-name">ОСЕНЬ-ЗИМА 19/20</div>
+                <div class="category-list-menu-name">SPECIALLY</div>
                 <ul class="category-list-menu-content" itemscope itemtype="http://www.schema.org/SiteNavigationElement">
-                        {% for item in winter_menu.get_items %}
+                        {% for item in specially_menu.get_items %}
+                        <li itemprop="name" class="{{item.class}}">
+                            <a itemprop="url" href="{{ item.link }}">{{ item.title }}</a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+            </div>
+
+            <div class="category-list-menu-item">
+                <div class="category-list-menu-name">PAROLE BY VICTORIA ANDREYANOVA</div>
+                <ul class="category-list-menu-content" itemscope itemtype="http://www.schema.org/SiteNavigationElement">
+                        {% for item in parole_menu.get_items %}
                         <li itemprop="name" class="{{item.class}}">
                             <a itemprop="url" href="{{ item.link }}">{{ item.title }}</a>
                         </li>
@@ -75,26 +86,7 @@
                     </ul>
             </div>
             
-            <div class="category-list-menu-item">
-                {# <div class="category-list-menu-name">SALE</div> #}
-                <ul class="category-list-menu-content" itemscope itemtype="http://www.schema.org/SiteNavigationElement">
-                    {% for item in sale_menu.get_items %}
-                    <div class="category-list-menu-item">
-                        <div class="category-list-menu-name">{{ item.title }}</div>
-                        <ul class="category-list-menu-content" itemscope itemtype="http://www.schema.org/SiteNavigationElement">
-                        {% for child in item.children %}
-                        
-                            <li itemprop="name" class="{{child.class}}">
-                            <a itemprop="url" href="{{ child.link }}">{{ child.title }}</a>
-                        </li>
-                        
-                        {% endfor %}
-                        </ul>
-                    </div>
-                    {% endfor %}
-                </ul>
-                
-            </div>
+
         </div>
      </div>
      <div class="header-top">
@@ -133,19 +125,26 @@
 
         <div class="hidden-menu_block">
             <div class="hidden-menu_block-content">
-                <div class="hidden-menu_block-item">
+                <div class="hidden-menu_block-item first-is-title">
                     <ul itemscope itemtype="http://www.schema.org/SiteNavigationElement">
-                        {# <li><a href="{{ site.link }}/product-category/produkciya-a-dress/v-l-20/">ВЕСНА-ЛЕТО 2020</a></li> #}
                         {% for item in spring_menu.get_items %}
                         <li itemprop="name" class="{{item.class}}">
                             <a itemprop="url" href="{{ item.link }}">{{ item.title }}</a>
                         </li>
                         {% endfor %}
                     </ul>
-                </div>
-                <div class="hidden-menu_block-item">
+                </div> 
+                <div class="hidden-menu_block-item first-is-title">
                     <ul itemscope itemtype="http://www.schema.org/SiteNavigationElement">
-                        {# <li><a href="{{ site.link }}/product-category/produkciya-a-dress/o-z-19-20/">ОСЕНЬ-ЗИМА 19/20</a></li> #}
+                        {% for item in specially_menu.get_items %}
+                        <li itemprop="name" class="{{item.class}}">
+                            <a itemprop="url" href="{{ item.link }}">{{ item.title }}</a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="hidden-menu_block-item first-is-title">
+                    <ul itemscope itemtype="http://www.schema.org/SiteNavigationElement">
                         {% for item in winter_menu.get_items %}
                         <li itemprop="name" class="{{item.class}}">
                             <a itemprop="url" href="{{ item.link }}">{{ item.title }}</a>
