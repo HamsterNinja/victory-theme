@@ -464,68 +464,12 @@ function timber_set_product($post)
     }
 }
 
-function woocommerce_script_cleaner()
-{
-    // Remove the generator tag
-    remove_action('wp_head', array(
-        $GLOBALS['woocommerce'],
-        'generator'
-    ));
-    wp_dequeue_style('woocommerce_frontend_styles');
-    wp_dequeue_style('woocommerce-general');
-    wp_dequeue_style('woocommerce-layout');
-    wp_dequeue_style('woocommerce-smallscreen');
-    wp_dequeue_style('woocommerce_fancybox_styles');
-    wp_dequeue_style('woocommerce_chosen_styles');
-    wp_dequeue_style('woocommerce_prettyPhoto_css');
-    wp_dequeue_script('selectWoo');
-    wp_deregister_script('selectWoo');
-    wp_dequeue_script('wc-add-payment-method');
-    wp_dequeue_script('wc-lost-password');
-    wp_dequeue_script('wc_price_slider');
-    wp_dequeue_script('wc-single-product');
-    // wp_dequeue_script( 'wc-cart-fragments' );
-    wp_dequeue_script('wc-credit-card-form');
-    wp_dequeue_script('wc-checkout');
-    wp_dequeue_script('wc-add-to-cart-variation');
-    wp_dequeue_script('wc-single-product');
-    wp_dequeue_script('wc-cart');
-    wp_dequeue_script('wc-chosen');
-    wp_dequeue_script('woocommerce');
-    wp_dequeue_script('prettyPhoto');
-    wp_dequeue_script('prettyPhoto-init');
-    wp_dequeue_script('jquery-blockui');
-    wp_dequeue_script('jquery-placeholder');
-    wp_dequeue_script('jquery-payment');
-    wp_dequeue_script('fancybox');
-    wp_dequeue_script('jqueryui');
-    if (!is_woocommerce() && !is_cart() && !is_checkout())
-    {
-        // wp_dequeue_script( 'wc-add-to-cart' );
-        
-    }
-}
-// add_action( 'wp_enqueue_scripts', 'woocommerce_script_cleaner', 99 );
 //Disable gutenberg style in Front
 function wps_deregister_styles()
 {
     wp_dequeue_style('wp-block-library');
 }
 add_action('wp_print_styles', 'wps_deregister_styles', 100);
-
-//remove type js and css for validator
-//add_action('wp_loaded', 'prefix_output_buffer_start');
-//function prefix_output_buffer_start() {
-//    ob_start("prefix_output_callback");
-//}
-//add_action('shutdown', 'prefix_output_buffer_end');
-//function prefix_output_buffer_end() {
-//    ob_end_flush();
-//}
-//function prefix_output_callback($buffer) {
-//    return preg_replace( "%[ ]type=[\'\"]text\/(javascript|css)[\'\"]%", '', $buffer );
-//}
-
 
 // Check and validate the mobile billing_phone
 add_action('woocommerce_save_account_details_errors', 'billing_phone_field_validation', 20, 1);
@@ -672,35 +616,6 @@ function filter_plugin_updates($value)
     return $value;
 }
 
-add_filter('manage_edit-product_columns', 'show_product_order', 15);
-function show_product_order($columns)
-{
-    $columns['stock_goods'] = 'Запасы';
-    return $columns;
-}
-
-function get_stock_variations_from_product($product_id)
-{
-    $product = wc_get_product($product_id);
-    $variations = $product->get_available_variations();
-    foreach ($variations as $variation)
-    {
-        $variation_id = $variation['variation_id'];
-        $variation_obj = new WC_Product_variation($variation_id);
-        $stock += $variation_obj->get_stock_quantity();
-    }
-    return $stock;
-}
-
-add_action('manage_product_posts_custom_column', 'wpso23858236_product_column_stock_goods', 10, 2);
-function wpso23858236_product_column_stock_goods($column, $postid)
-{
-    if ($column == 'stock_goods')
-    {
-        echo get_stock_variations_from_product($postid);
-    }
-}
-
 /**
  * Change the breadcrumb separator
  */
@@ -711,40 +626,4 @@ function wcc_change_breadcrumb_delimiter($defaults)
     return $defaults;
 }
 
-add_filter('manage_edit-shop_order_columns', 'MY_COLUMNS_FUNCTION');
-function MY_COLUMNS_FUNCTION($columns)
-{
-    $new_columns = (is_array($columns)) ? $columns : array();
-    unset($new_columns['order_actions']);
-
-    //edit this for your column(s)
-    //all of your columns will be added before the actions column
-    $new_columns['MY_COLUMN_ID_1'] = 'Имя клиента';
-
-    //stop editing
-    $new_columns['order_actions'] = $columns['order_actions'];
-    return $new_columns;
-}
-
-add_filter("manage_edit-shop_order_sortable_columns", 'MY_COLUMNS_SORT_FUNCTION');
-function MY_COLUMNS_SORT_FUNCTION($columns)
-{
-    $custom = array(
-        'MY_COLUMN_ID_1' => 'MY_COLUMN_1_POST_META_ID',
-    );
-    return wp_parse_args($custom, $columns);
-}
-
-add_action('manage_shop_order_posts_custom_column', 'MY_COLUMNS_VALUES_FUNCTION', 2);
-function MY_COLUMNS_VALUES_FUNCTION($column)
-{
-    global $post;
-    $data = get_post_meta($post->ID);
-
-    if ($column == 'MY_COLUMN_ID_1')
-    {
-        $name = $data['_billing_first_name'][0] . ' ' . $data['_billing_last_name'][0];
-        echo (isset($name) ? $name : '');
-    }
-}
 
