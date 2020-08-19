@@ -156,5 +156,34 @@ if( function_exists('acf_add_local_field_group') ):
         'active' => true,
         'description' => '',
     ));
-    
-    endif;
+
+    acf_add_local_field_group(array(
+        'key' => 'group_5f3d0743e3710',
+        'title' => 'Продукт',
+        'fields' => array(
+            array(
+                'key' => 'field_5f3d074c1b44b',
+                'label' => 'Рост модели',
+                'name' => 'model_height',
+                'type' => 'text',
+            ),
+        ),
+        'location' => array(
+            array(
+                array(
+                    'param' => 'post_type',
+                    'operator' => '==',
+                    'value' => 'product',
+                ),
+            ),
+        ),
+        'menu_order' => 0,
+        'position' => 'normal',
+        'style' => 'default',
+        'label_placement' => 'top',
+        'instruction_placement' => 'label',
+        'hide_on_screen' => '',
+        'active' => true,
+        'description' => '',
+    ));
+endif;

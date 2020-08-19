@@ -55,19 +55,17 @@
                         </label> 
                     </div>
                 </div>
-            
-            {# <div class="product-colors">
-                <div class="product-colors-name">Выберите цвет</div>
-                <select name="product_color" v-model="currentColor">
-                    <template v-for="unicColor in unicColors">
-                        <option  v-cloak :value="unicColor">(( unicColor ))</option>
-                    </template>
-                </select>
-            </div> #}
             {% endif %}
             <div class="product-info-content">
-            	<p>Артикул: {{ sku }}</p>
-                <p>Состав: {{ product.get_attribute('pa_im-sostav-osnovnaya-tkan-v') }}</p>
+                {% if sku %}
+            	    <p>Артикул: {{ sku }}</p>
+                {% endif %}
+                {% if product.get_attribute('pa_im-sostav-osnovnaya-tkan-v') %}
+                    <p>Состав: {{ product.get_attribute('pa_im-sostav-osnovnaya-tkan-v') }}</p>
+                {% endif %}
+                {% if product_colors %}
+                    <p>Цвет: {{ product_colors }}</p>
+                {% endif %}
             </div>
             <div class="product-buttons">
                 <a class="btn-cart" ref="button_cart" href="" data-id="{{ product.id }}" v-on:click.prevent="addCart(productID)">Добавить в корзину</a>
@@ -75,6 +73,9 @@
             </div>
             <div class="product-description">
                 {{ post.preview.length(999).read_more('') }}
+                {% if post.model_height %}
+                    <p>Рост модели: {{ post.model_height }}</p>
+                {% endif %}
             </div>
         </div>
     </div>

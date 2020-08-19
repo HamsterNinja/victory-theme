@@ -30,6 +30,18 @@ if (is_singular('product'))
     $context['prices'] = price_array($product->get_price_html());
     
     $attributes = $product->get_attributes();
+
+
+    $color_product = $attributes["cvet"];
+    $color_product_options = $color_product["options"];
+
+    foreach ($color_product_options as $key => $value) {
+        if($value == 'образец'){
+            unset($color_product_options[$key]);
+        }
+    }
+    $context['product_colors'] = join(", ", $color_product_options);
+
     $product_attributes = [];
     foreach ($attributes as $attribute)
     {
