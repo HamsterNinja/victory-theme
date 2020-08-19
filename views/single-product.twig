@@ -29,12 +29,18 @@
                 <h1>{{ post.title }}</h1>
             </div>
             <div class="product-price">
-                {% if product.price_html[0] %}
-                <div class="product-old-price"><span class="old-price_value">{{ product.price_html[1] }}</span><span>₽</span><!-- <span class="sale-percent">10%</span> --></div>
-                <div class="product-current-price">{{ product.price_html[0] }} <span>₽</span></div>
+                {% if prices[1] %}
+                    {% if prices[0] %}
+                        <div class="product-old-price">
+                            <span class="old-price_value">{{ prices[0] }}</span>₽<span></span>
+                        </div>
+                    {% endif %}
+                    <div class="product-current-price">{{ prices[1] }} <span>₽</span></div>
                 {% else %}
-                    <div class="product-current-price">{{ product.get_price_html }} <span>₽</span></div>
-                {% endif %}
+                    {% if prices[0] %}
+                        <div class="product-current-price">{{ prices[0] }} <span>₽</span></div>
+                    {% endif %}
+                {% endif %}               
             </div>
             {% if product_variations %}
                 <div class="product-sizes" v-if="uniqueProductVariations.length > 0">

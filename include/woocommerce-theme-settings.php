@@ -64,3 +64,27 @@ function wpso23858236_product_column_stock_goods($column, $postid)
         echo get_the_excerpt($postid);
     }
 }
+
+function price_array($price){
+    $del = array('<span class="woocommerce-Price-amount amount">', '<span class="woocommerce-Price-currencySymbol">' ,'</span>','<del>','<ins>', '&#8381;', '&nbsp;');
+    $price = str_replace($del, '', $price);
+    $price = str_replace('</del>', '|', $price);
+    $price = str_replace('</ins>', '|', $price);
+    $price_arr = explode('|', $price);
+    $price_arr = array_filter($price_arr);
+    return $price_arr;
+}
+
+function product_render($post)
+{
+    setup_postdata($post);
+    $product = wc_get_product($post->ID);
+
+    $context['id'] = $product->get_id();
+    $context['title'] = $product->get_title();;
+    $context['link'] = $product->get_permalink();
+    $context['thumbnail'] = get_the_post_thumbnail_url($product->get_id() , 'medium');
+    $context['prices'] = price_array($product->get_price_html());
+
+    Timber::render('partials/product-item.twig', $context);
+}

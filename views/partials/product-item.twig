@@ -4,9 +4,16 @@
         <h4>{{ title }}</h4>
     </div>
     <div class="catalog-content-item-price">
-        <!-- <div class="catalog_old-price">14 000 руб</div> -->
-        {% if price %}
-            <div class="catalog_current-price">{{ price }} <span>₽</span></div>
-        {% endif %}
+        {% if prices[1] %}
+            {% if prices[0] %}
+                <div class="catalog_old-price">{{ prices[0] }} <span>₽</span></div>
+            {% endif %} 
+            <div class="catalog_current-price catalog_current-price--sale">{{ prices[1] }} <span>₽</span></div>        
+        {% else %}
+            {% if prices[0] %}
+                <div class="catalog_current-price">{{ prices[0] }} <span>₽</span></div> 
+            {% endif %} 
+        {% endif %} 
     </div>
 </a>
+

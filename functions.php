@@ -588,19 +588,7 @@ function your_prefix_wc_remove_uncategorized_from_breadcrumb($crumbs)
 
 add_filter('woocommerce_get_breadcrumb', 'your_prefix_wc_remove_uncategorized_from_breadcrumb');
 
-function product_render($post)
-{
-    setup_postdata($post);
-    $product = wc_get_product($post->ID);
 
-    $context['id'] = $product->get_id();
-    $context['title'] = $product->get_title();;
-    $context['link'] = $product->get_permalink();
-    $context['thumbnail'] = get_the_post_thumbnail_url($product->get_id() , 'medium');
-    $context['price'] = $product->get_price_html();
-
-    Timber::render('partials/product-item.twig', $context);
-}
 
 add_filter('woocommerce_currency_symbol', 'change_existing_currency_symbol', 10, 2);
 

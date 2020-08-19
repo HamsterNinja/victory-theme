@@ -1,6 +1,6 @@
-@import "base/normalize";
-@import "vendors/slick";
-@import "vendors/slick-theme";
+@import 'base/normalize';
+@import 'vendors/slick';
+@import 'vendors/slick-theme';
 html {
     box-sizing: border-box;
     height: 100%;
@@ -16,7 +16,7 @@ html {
 
 body {
     background: #fff;
-    font-family: "Montserrat", sans-serif;
+    font-family: 'Montserrat', sans-serif;
 }
 
 img {
@@ -195,7 +195,7 @@ section.collections_block {
     text-align: center;
 }
 .collections-item:before {
-    content: "";
+    content: '';
     display: block;
     position: absolute;
     top: 0;
@@ -465,7 +465,7 @@ body.home footer.main-footer {
     position: relative;
 }
 .category-list-menu-name:after {
-    content: "";
+    content: '';
     display: block;
     position: absolute;
     top: 1px;
@@ -563,15 +563,20 @@ ul.category-list-menu-content li a {
     color: #000;
     margin: 0 5px;
 }
+
+.catalog_current-price.catalog_current-price--sale {
+    color: #c72b2b;
+}
+
 .catalog_old-price {
     font-size: 18px;
-    color: #656565;
+    color: #000;
     margin: 0 5px;
     position: relative;
     display: inline-block;
 }
 .catalog_old-price:after {
-    content: "";
+    content: '';
     display: block;
     width: calc(100% + 12px);
     height: 1px;
@@ -1012,9 +1017,7 @@ ul.pagination.list li {
     box-shadow: 0 4px 6px 0 rgba(32, 33, 36, 0.28);
     border-radius: 0;
 }
-.v-text-field.v-text-field--solo:not(.v-text-field--solo-flat)
-    > .v-input__control
-    > .v-input__slot {
+.v-text-field.v-text-field--solo:not(.v-text-field--solo-flat) > .v-input__control > .v-input__slot {
     box-shadow: none;
     border-radius: 0;
 }
@@ -1033,9 +1036,7 @@ ul.pagination.list li {
     width: 0;
 }
 
-.v-text-field.v-text-field--solo:not(.v-text-field--solo-flat)
-    > .v-input__control
-    > .v-input__slot {
+.v-text-field.v-text-field--solo:not(.v-text-field--solo-flat) > .v-input__control > .v-input__slot {
     box-shadow: none;
     width: 200px;
 }
@@ -1099,7 +1100,7 @@ ul.pagination.list li {
 }
 
 .contacts-page-item-address:before {
-    content: "";
+    content: '';
     display: inline-block;
     vertical-align: top;
     width: 10px;
@@ -1399,7 +1400,7 @@ a.other-news-item {
     text-decoration: none;
 }
 
-@import "popup";
-@import "layout/header";
-@import "layout/footer";
-@import "media-requests";
+@import 'popup';
+@import 'layout/header';
+@import 'layout/footer';
+@import 'media-requests';

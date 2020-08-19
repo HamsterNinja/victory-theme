@@ -22,10 +22,13 @@ if (is_singular('product'))
     //images product
     $attachment_ids = $product->get_gallery_image_ids();
     $context['attachment_ids'] = $attachment_ids;
+    $context['sizes_image'] = get_field('sizes', 'options');
+    
     $context['regular_price'] = $product->get_regular_price();
     $context['sale_price'] = $product->get_sale_price();
-    $context['sizes_image'] = get_field('sizes', 'options');
 
+    $context['prices'] = price_array($product->get_price_html());
+    
     $attributes = $product->get_attributes();
     $product_attributes = [];
     foreach ($attributes as $attribute)
