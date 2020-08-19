@@ -360,7 +360,7 @@ class StarterSite extends TimberSite
         $context['facebook'] = 'https://www.facebook.com/victoriaandreyanovaofficial';
         $context['instagram'] = 'https://www.instagram.com/victoria_andreyanova_official';
 
-        global $product; //Если не объявлен ранее. Не уверен в необходимости.
+        global $product;
         $categories = get_the_terms($post->ID, 'product_cat');
         $args = array(
             'post_type' => 'product',

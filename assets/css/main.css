@@ -597,6 +597,12 @@ html {
   box-sizing: inherit;
   outline: none;
 }
+[v-cloak] {
+  display: none;
+}
+[v-cloak] > * {
+  display: none;
+}
 body {
   background: #fff;
   font-family: 'Montserrat', sans-serif;
@@ -1903,6 +1909,83 @@ a.other-news-item {
   font-weight: bold;
   color: #000;
   text-decoration: none;
+}
+.outstock .control_indicator {
+  background-color: #f5f5f5;
+  color: #ccc;
+}
+.size-item.outstock {
+  pointer-events: none;
+}
+.control:hover input ~ .control_indicator, .control input:focus ~ .control_indicator {
+  background: #000;
+  color: #fff;
+}
+@-webkit-keyframes showModal {
+  from {
+    opacity: 0;
+    -webkit-transform: translateY(10px);
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+}
+@keyframes showModal {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.modal-window-container .thank_title {
+  margin-bottom: 30px;
+  font-weight: 600;
+  font-size: 28px;
+  line-height: 33px;
+  color: #001a34;
+  margin-bottom: 15px;
+}
+.modal-buttons a {
+  font-size: 14px;
+  color: #fff;
+  display: inline-block;
+  max-width: 220px;
+  width: 100%;
+  text-align: center;
+  background-color: #000;
+  text-decoration: none;
+  font-weight: 700;
+  border: 1px solid #000;
+  text-transform: uppercase;
+  padding: 17px 8px;
+  margin-right: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.modal-buttons a span {
+  margin-right: 10px;
+}
+.modal-buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.added-product-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+span.added-product__value {
+  font-size: 18px;
+  font-weight: 500;
 }
 .overlay.overlay--show {
   display: block;

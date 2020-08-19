@@ -46,6 +46,8 @@ numeral.register('locale', 'ru', {
 
 numeral.locale('ru')
 
+import { modal } from './components/mixins/modal'
+
 document.addEventListener('DOMContentLoaded', () => {
     let elVue = '#app'
     let elVueQuery = document.querySelector(elVue)
@@ -54,16 +56,26 @@ document.addEventListener('DOMContentLoaded', () => {
         const app = new Vue({
             el: '#app',
             vuetify: new Vuetify(),
+            mixins: [modal],
             store,
             delimiters: ['((', '))'],
             data() {
                 return {
                     sortItems: [
-                        { label: 'По умолчанию', value: 'date_desc' },
+                        { label: 'По популярности', value: 'popular' },
                         { label: 'По убыванию цены', value: 'price_desc' },
-                        { label: 'По возрастанию цены', value: 'price_asc' }
+                        { label: 'По возрастанию цены', value: 'price_asc' },
+                        { label: 'По умолчанию', value: 'date_desc' },
+                    ],
+                    materialItems: [
+                        { label: '', value: '' },
+                        { label: 'хлопок', value: 'popular' },
+                        { label: 'шерсть', value: 'price_desc' },
+                        { label: 'шелк', value: 'price_asc' },
+                        { label: 'вискоза', value: 'date_desc' },
                     ],
                     sort: 'date_desc',
+                    material: '',
                     price: [100, 15000],
                     chips: [],
                     items: SITEDATA.sizes,
@@ -88,12 +100,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 },
                 uniqueProductVariations() {
-                    return this.productVariations.filter((variation) => variation.label !== 'образец' && variation.value !== null && variation.stock_quality !== null)
+                    let result = this.productVariations.filter(
+                        variation => variation.label !== 'образец' && variation.value !== null && variation.stock_quality !== null
+                    )
+                    return result.sort((a, b) => parseFloat(a.value) - parseFloat(b.value));
                 },
-                unicSizes() {
-                    let unique = [...new Set(this.productVariations.map((x) => x.value))]
-                    return unique
-                }
             },
             methods: {
                 remove(item) {
@@ -132,11 +143,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                     let response = await fetch(wc_add_to_cart_params.ajax_url, fetchData)
                     let jsonResponse = await response.json()
-                    if (jsonResponse.error != 'undefined' && jsonResponse.error) {
+                    if (jsonResponse.error != 'undefined' && jsonResponse.error || jsonResponse.success === false) {
+                        this.$refs.button_cart.innerText = 'Ошибка добавления товара'
                         console.error('ошибка добавления товара')
                     } else if (jsonResponse.success) {
                         this.$refs.button_cart.innerText = 'Товар добавлен'
-
+                        setTimeout(() => {this.showModal('modal-window--added-to-cart')}, 0)
                         this.updateFragment()
                     }
                     this.adding = false
@@ -153,8 +165,8 @@ document.addEventListener('DOMContentLoaded', () => {
                         $(document.body).trigger('wc_fragments_refreshed')
                     }
                 },
-                selectSize() {
-                    this.$refs.button_cart.innerText = 'Добавить в корзину'
+                selectSize(size) {
+                    this.selectedProductSize = size
                 }
             },
             async mounted() {

@@ -57,6 +57,7 @@
 							</v-combobox>
 						</div>
 					</div>
+
 					<div class="catalog-filter-item">
 						<div class="catalog-filter-item-name">Сортировка</div>
 						<div class="catalog-filter-item-content" id="sort-block">
@@ -72,13 +73,30 @@
 							></v-select>
 						</div>
 					</div>
+
+					<div class="catalog-filter-item">
+						<div class="catalog-filter-item-name">Состав</div>
+						<div class="catalog-filter-item-content" id="sostav-block">
+							<v-select
+								:items="materialItems"
+								label="Состав"
+								item-text="label"
+								item-value="value"
+								attach="#sostav-block"
+								solo
+								v-model="material"
+								v-on:change="applyFilter('catalogSort', $event)"
+							></v-select>
+						</div>
+					</div>
+
 				</div>
 				</v-app>
 		</div>
 		<product-list></product-list>
 
 		<paginate 
-            v-if="category_count_page !== 0" 
+            v-if="category_count_page > 1" 
             ref="paginate2" 
 			:page-count="category_count_page" 
 			:click-handler="selectPage" 

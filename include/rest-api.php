@@ -21,7 +21,6 @@ function custom_api_attribute_response_lenses( $response, $item, $request ) {
 }
 add_filter( 'woocommerce_rest_prepare_pa_colors_lenses', 'custom_api_attribute_response_lenses', 10, 3 );
 
-//Получение продуктов
 function getProducts(WP_REST_Request $request) {
     function roundArray($n){
         return round($n, 1);
@@ -138,46 +137,8 @@ function getProducts(WP_REST_Request $request) {
             array_push($args['tax_query'], $request_params); 
         }
 
-        // if (isset($current_widths)  && !(empty($current_widths))) {
-        //     $request_params = array(
-        //         'taxonomy' => 'pa_width',
-        //         'field' => 'slug',
-        //         'terms' => $current_widths,
-        //     );
-        //     array_push($args['tax_query'], $request_params); 
-        // }
-
-        // if (isset($current_colors)  && !(empty($current_colors))) {
-        //     $request_params = array(
-        //         'taxonomy' => 'pa_colors',
-        //         'field' => 'slug',
-        //         'terms' => $current_colors,
-        //     );
-        //     array_push($args['tax_query'], $request_params); 
-        // }
-
-
-        // if (isset($current_materials)  && !(empty($current_materials))) {
-        //     $request_params = array(
-        //         'taxonomy' => 'pa_materials',
-        //         'field' => 'slug',
-        //         'terms' => $current_materials,
-        //     );
-        //     array_push($args['tax_query'], $request_params); 
-        // }
-
         $result = new WP_Query($args);
         $products = [];
-
-        function price_array($price){
-            $del = array('<span class="woocommerce-Price-amount amount">', '<span class="woocommerce-Price-currencySymbol">' ,'</span>','<del>','<ins>', '&#8381;');
-            $price = str_replace($del, '', $price);
-            $price = str_replace('</del>', '|', $price);
-            $price = str_replace('</ins>', '|', $price);
-            $price_arr = explode('|', $price);
-            $price_arr = array_filter($price_arr);
-            return $price_arr;
-        }
 
         foreach ($result->posts as $post) {
             $productInstance = new WC_Product($post->ID);
