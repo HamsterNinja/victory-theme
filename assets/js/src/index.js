@@ -101,7 +101,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 },
                 uniqueProductVariations() {
                     let result = this.productVariations.filter(
-                        variation => variation.label !== 'образец' && variation.value !== null && variation.stock_quality !== null
+                        variation => variation.label !== 'образец' && variation.value.toLowerCase() !== 'образец' && variation.value !== null && variation.stock_quality !== null
                     )
                     return result.sort((a, b) => parseFloat(a.value) - parseFloat(b.value));
                 },
