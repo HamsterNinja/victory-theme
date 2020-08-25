@@ -56,7 +56,9 @@
                             v-cloak
                         >
                             <input v-model="productID" @change="selectSize(unicSize.value)" type="radio" name="size" :value="unicSize.id" />
-                            <div class="control_indicator size-item__label">(( unicSize.value ))</div>
+                            <div class="control_indicator size-item__label">
+                                (( unicSize.value | clearText ))
+                            </div>
                         </label> 
                     </div>
                 </div>
@@ -91,7 +93,7 @@
         <div class="collections-content _single-product">
             <div class="collections-content-inner">
                 <div class="collections-slick">
-                    {% for post in random_prod %}
+                    {% for post in recommended_products %}
                     <div class="collections-slick-content">
                         {{ fn('product_render', post) }}
                     </div>
@@ -139,6 +141,5 @@
             </div>
         </div>
     </div>
-
 </main>
 {% include "partials/footer.twig" %}

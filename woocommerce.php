@@ -121,6 +121,43 @@ if (is_singular('product'))
     $context['comments'] = $comments;
     $context['average_product_rating'] = $average_product_rating ? $average_product_rating : 0;
 
+
+    // recommmend_products
+    $args_variation = array(
+        'post_status' => 'publish',
+        'post_type' => 'product_variation',
+        'fields' => 'id=>parent',
+        'posts_per_page' => - 1,
+    );
+    $args_variation['tax_query'] = array(
+        'relation' => 'AND'
+    );
+    $args_variation['meta_query'] = array(
+        'relation' => 'AND'
+    );
+    $request_params = array(
+        'key' => '_stock_status',
+        'value' => 'instock',
+    );
+    array_push($args_variation['meta_query'], $request_params);
+    $q = new WP_Query($args_variation);
+    $parent_ids = wp_list_pluck($q->posts, 'post_parent');
+    $args = array(
+        'post_status' => 'publish',
+        'post_type' => 'product',
+        'posts_per_page' => 8,
+        'order' => 'DESC',
+    );
+    if ($parent_ids)
+    {
+        $args['include'] = $parent_ids;
+    }
+    if ($include)
+    {
+        $args['include'] = explode(',', $include);
+    }
+    $context['recommended_products'] = Timber::get_posts($args);
+
     Timber::render('single-product.twig', $context);
 }
 else

@@ -49,6 +49,12 @@ function get_stock_variations_from_product($product_id)
         $variation_obj = new WC_Product_variation($variation_id);
         $stock += $variation_obj->get_stock_quantity();
     }
+    if(is_null($stock)){
+        $stock = $product->get_stock_quantity();
+    }
+    if(is_null($stock)){
+        $stock = 0;
+    }
     return $stock;
 }
 

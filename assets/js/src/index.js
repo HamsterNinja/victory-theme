@@ -48,6 +48,10 @@ numeral.locale('ru')
 
 import { modal } from './components/mixins/modal'
 
+Vue.filter('clearText', function (text) {
+    return text.replace("Размер", "")
+})
+
 document.addEventListener('DOMContentLoaded', () => {
     let elVue = '#app'
     let elVueQuery = document.querySelector(elVue)

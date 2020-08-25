@@ -471,6 +471,7 @@ body.home footer.main-footer {
     color: #2e3033;
     cursor: pointer;
     position: relative;
+    line-height: 1.5;
 }
 .category-list-menu-name:after {
     content: '';
@@ -626,9 +627,10 @@ ul.category-list-menu-content li a {
 }
 .product-name {
     margin-bottom: 12px;
+    margin-top: 12px;
 }
 .product-name h1 {
-    font-size: 35px;
+    font-size: 26px;
     color: #000;
     font-weight: 400;
     margin: 0;
@@ -1372,12 +1374,17 @@ a.other-news-item {
 }
 
 .alert-container {
-    padding: 20px;
-    background-color: #000;
+    padding: 5px 20px;
+    background-color: #ccc;
     color: white;
     max-width: 620px;
     width: 100%;
     text-align: center;
+    font-size: 14px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    text-shadow: 1px 1px 1px rgb(0 0 0 / 0.5);
 }
 
 /* The close button */
@@ -1473,10 +1480,9 @@ a.other-news-item {
     align-items: center;
 }
 
-.modal-buttons a  span {
+.modal-buttons a span {
     margin-right: 10px;
-} 
-
+}
 
 .modal-buttons {
     display: flex;
