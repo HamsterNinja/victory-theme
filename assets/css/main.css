@@ -1203,6 +1203,18 @@ ul.category-list-menu-content li a {
 .product-price {
   margin-bottom: 45px;
 }
+.product-price.product-price--flex {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.product-price.product-price--flex .product-old-price {
+  margin-right: 10px;
+}
+.product-price.product-price--flex .product-current-price {
+  font-size: 20px;
+}
 span.old-price_value {
   font-size: 20px;
   text-decoration: line-through;
@@ -2149,6 +2161,8 @@ body.home .main-header-left {
   margin-bottom: 0;
   font-size: 0;
   margin-right: 14px;
+}
+.home .js-search {
   filter: brightness(5);
 }
 a.user-lk {

@@ -239,13 +239,15 @@ function add_scripts()
     $min_price_per_product_cat = get_min_price_per_product_cat($term_id);
     $max_price_per_product_cat = round(get_max_price_per_product_cat($term_id) , -3);
 
-    //TODO: починить блядоразмеры
-    $sizes_v1 = TimberHelper::transient('sizes_v1', function ()
-    {
-        // return getAllSizes();
-        return [];
-    }
-    , 2600);
+    global $wpdb;
+    $sizes = $wpdb->get_col( 
+        "
+        SELECT DISTINCT meta_value AS value
+        FROM $wpdb->postmeta
+        WHERE meta_key = 'attribute_razmer'
+        ORDER BY meta_value
+        "
+    );
 
     wp_localize_script('app-main', 'SITEDATA', array(
         'url' => get_site_url() ,
@@ -267,7 +269,7 @@ function add_scripts()
         'ajax_noncy_nonce' => wp_create_nonce('noncy_nonce') ,
         'min_price_per_product_cat' => $min_price_per_product_cat ? $min_price_per_product_cat : 0,
         'max_price_per_product_cat' => $max_price_per_product_cat ? $max_price_per_product_cat : 50000,
-        'sizes' => $sizes_v1,
+        'sizes' => $sizes,
     ));
 }
 
