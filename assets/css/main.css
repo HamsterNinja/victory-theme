@@ -1172,9 +1172,8 @@ ul.category-list-menu-content li a {
   width: 100%;
 }
 .product-slick-for-content img {
-  height: 610px;
   width: 100%;
-  object-fit: cover;
+  height: auto;
 }
 .product-info {
   max-width: 351px;
@@ -1888,7 +1887,7 @@ a.other-news-item {
   z-index: 115;
   display: flex;
   justify-content: center;
-  top: 5px;
+  bottom: 5px;
   left: 50%;
   transform: translateX(-50%);
 }

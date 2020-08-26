@@ -615,10 +615,10 @@ ul.category-list-menu-content li a {
     width: 100%;
 }
 .product-slick-for-content img {
-    height: 610px;
     width: 100%;
-    object-fit: cover;
+    height: auto;
 }
+
 .product-info {
     max-width: 351px;
     width: 100%;
@@ -1384,7 +1384,7 @@ a.other-news-item {
     z-index: 115;
     display: flex;
     justify-content: center;
-    top: 5px;
+    bottom: 5px;
     left: 50%;
     transform: translateX(-50%);
 }
@@ -1469,7 +1469,7 @@ a.other-news-item {
 }
 
 .modal-window-container .thank_title {
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     font-weight: 600;
     font-size: 28px;
     line-height: 33px;
@@ -1516,8 +1516,17 @@ a.other-news-item {
 }
 
 span.added-product__value {
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 500;
+}
+
+.added-product-container span.old-price_value {
+    font-size: 16px;
+}
+
+.added-product-container .product-current-price {
+    font-size: 18px;
+    color: #c72b2b;
 }
 
 @import 'popup';
