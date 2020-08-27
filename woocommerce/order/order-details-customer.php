@@ -54,9 +54,17 @@ $show_shipping = ! wc_ship_to_billing_address_only() && $order->needs_shipping_a
 		</div><!-- /.col-2 -->
 
 	</section><!-- /.col2-set -->
-
 	<?php endif; ?>
 
 	<?php do_action( 'woocommerce_order_details_after_customer_details', $order ); ?>
 
 </section>
+
+<!-- <section class="col2-set">
+	<div class="woocommerce-column woocommerce-column--1 col-1">
+		<h2 class="woocommerce-column__title">Данные клиента</h2>
+		<div class="border-woo">
+
+		</div>
+	</div>
+</section> -->

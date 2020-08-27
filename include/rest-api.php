@@ -21,6 +21,7 @@ function custom_api_attribute_response_lenses( $response, $item, $request ) {
 }
 add_filter( 'woocommerce_rest_prepare_pa_colors_lenses', 'custom_api_attribute_response_lenses', 10, 3 );
 
+//Получение продуктов
 function getProducts(WP_REST_Request $request) {
     function roundArray($n){
         return round($n, 1);
@@ -150,9 +151,7 @@ function getProducts(WP_REST_Request $request) {
             $product->permalink = get_permalink($post->ID);
             $product->regular_price = $productInstance->get_regular_price();
             $product->sale_price = $productInstance->get_sale_price();
-            $image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'single-post-thumbnail' ); 
-            $product->images = $image[0];
-            //product_tag
+            $product->images = [];   
             $terms_product_tag = get_the_terms( $post->ID, 'product_tag' );
             $term_array_product_tag = array();
             if ( ! empty( $terms_product_tag ) && ! is_wp_error( $terms_product_tag ) ){
@@ -168,11 +167,11 @@ function getProducts(WP_REST_Request $request) {
             $price_html = $productInstance->get_price_html();
             $product->price_html = price_array($price_html);
 
-            // global $_wp_additional_image_sizes;
-            // foreach ($_wp_additional_image_sizes as $size => $value) {
-            //     $image_info = wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), $size);
-            //     $product->images[0][$size] = $image_info[0];
-            // }
+            global $_wp_additional_image_sizes;
+            foreach ($_wp_additional_image_sizes as $size => $value) {
+                $image_info = wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), $size);
+                $product->images[0][$size] = $image_info[0];
+            }
             $product->acf = get_fields($post->ID);
             array_push($products, $product);
         }
@@ -182,6 +181,9 @@ function getProducts(WP_REST_Request $request) {
         $response->found_posts = $result->found_posts;
         $response->post_count = $result->post_count;
         $response->current_post = $result->current_post;
+
+        $response->test = $current_items_order_by;
+        
         wp_send_json_success( $response , 200 );
     }
     wp_send_json_error('Ошибка при получение значений продуктов');
