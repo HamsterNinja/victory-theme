@@ -1529,6 +1529,10 @@ span.added-product__value {
     color: #c72b2b;
 }
 
+.hidden-menu_block-item.padding-is-title {
+    padding-top: 30px;
+}
+
 @import 'popup';
 @import 'layout/header';
 @import 'layout/footer';

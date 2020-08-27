@@ -152,8 +152,8 @@
                         {% endfor %}
                     </ul>
                 </div>
-                <div class="hidden-menu_block-item">
-                    <ul>
+                <div class="hidden-menu_block-item padding-is-title">
+                    <ul itemscope itemtype="http://www.schema.org/SiteNavigationElement">
                         {% for item in company_menu.get_items %}
                         <li itemprop="name" class="{{item.class}}">
                             <a itemprop="url" href="{{ item.link }}">{{ item.title }}</a>

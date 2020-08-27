@@ -2012,6 +2012,9 @@ span.added-product__value {
   font-size: 18px;
   color: #c72b2b;
 }
+.hidden-menu_block-item.padding-is-title {
+  padding-top: 30px;
+}
 .overlay.overlay--show {
   display: block;
   -webkit-animation: showModal 250ms ease-in-out;
