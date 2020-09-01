@@ -162,27 +162,20 @@ function getProducts(WP_REST_Request $request) {
             $product->permalink = get_permalink($post->ID);
             $product->regular_price = $productInstance->get_regular_price();
             $product->sale_price = $productInstance->get_sale_price();
-            $product->images = [];   
+            $image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'single-post-thumbnail' ); 
+            $product->images = $image[0];
             $terms_product_tag = get_the_terms( $post->ID, 'product_tag' );
             $term_array_product_tag = array();
-            if ( ! empty( $terms_product_tag ) && ! is_wp_error( $terms_product_tag ) ){
+            if ( !empty( $terms_product_tag ) && !is_wp_error( $terms_product_tag ) ){
                 foreach ( $terms_product_tag as $term ) {
                     $term_array_product_tag[] = $term->name;
                 }
             }
             $product->product_tags = $term_array_product_tag;
-
             $sizes_attributes = $productInstance->get_attribute( 'sizes' );
             $product->sizes_attributes = $sizes_attributes;
-
             $price_html = $productInstance->get_price_html();
             $product->price_html = price_array($price_html);
-
-            global $_wp_additional_image_sizes;
-            foreach ($_wp_additional_image_sizes as $size => $value) {
-                $image_info = wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), $size);
-                $product->images[0][$size] = $image_info[0];
-            }
             $product->acf = get_fields($post->ID);
             array_push($products, $product);
         }
