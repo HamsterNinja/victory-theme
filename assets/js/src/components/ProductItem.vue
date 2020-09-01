@@ -2,7 +2,7 @@
     <a class="catalog-content-item" :href="product.permalink">
 		<div class="catalog-content-item-img"> 
             <div v-if="product.acf.new == true" class="new-hit"><div class="new-tag">New</div></div>
-			<img v-if="product.images" :src="product.images" :alt="product.name"/>
+			<img v-if="product.images.length > 0" :src="product.images" :alt="product.name"/>
             <img v-else :src="template_url + '/assets/images/placeholder-images.webp'" :alt="product.name">
 		</div>
 		<div class="catalog-content-item-name">
