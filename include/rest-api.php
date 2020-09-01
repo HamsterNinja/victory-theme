@@ -59,6 +59,8 @@ function getProducts(WP_REST_Request $request) {
         );
         array_push($args_variation['meta_query'], $request_params); 
 
+        
+
         if (isset($current_sizes)  && !(empty($current_sizes))) {
             $request_params = array(
                 'key' => 'attribute_razmer',
@@ -137,6 +139,12 @@ function getProducts(WP_REST_Request $request) {
             );
             array_push($args['tax_query'], $request_params); 
         }
+
+        $request_params = array(
+            'key' => '_stock_status',
+            'value' => 'instock',
+        );
+        array_push($args['meta_query'], $request_params); 
 
         $result = new WP_Query($args);
         $products = [];

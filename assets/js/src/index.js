@@ -82,7 +82,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     material: '',
                     price: [100, 15000],
                     chips: [],
-                    items: SITEDATA.sizes,
                     loading: true,
                     adding: false,
                     favorite_products: [],
@@ -102,6 +101,9 @@ document.addEventListener('DOMContentLoaded', () => {
                         this.currentProductSize = object.attribute_razmer
                         return object
                     }
+                },
+                items(){
+                    return SITEDATA.sizes.filter(Boolean)
                 },
                 uniqueProductVariations() {
                     let result = this.productVariations.filter(

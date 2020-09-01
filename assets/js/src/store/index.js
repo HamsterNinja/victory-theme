@@ -151,7 +151,7 @@ const store = new Vuex.Store({
                 const dataProducts = await responseProducts.json();
                 commit('ALL_PRODUCTS_SUCCESS', dataProducts.data.posts);
                 commit('updateCategoryCount', dataProducts.data.found_posts);
-                commit('updateCategoryCountPage', Math.ceil(dataProducts.data.found_posts / 16));
+                commit('updateCategoryCountPage', Math.ceil(dataProducts.data.found_posts / 21));
             }
             commit('updateLoadingProducts', false);
 
