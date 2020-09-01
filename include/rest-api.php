@@ -59,8 +59,6 @@ function getProducts(WP_REST_Request $request) {
         );
         array_push($args_variation['meta_query'], $request_params); 
 
-        
-
         if (isset($current_sizes)  && !(empty($current_sizes))) {
             $request_params = array(
                 'key' => 'attribute_razmer',
@@ -86,29 +84,15 @@ function getProducts(WP_REST_Request $request) {
             array_push($args_variation['meta_query'], $prices); 
         }
 
-        
         $q = new WP_Query($args_variation);
         $parent_ids = wp_list_pluck( $q->posts, 'post_parent' );
-        
+
         $args = array(
             'post_status' => 'publish',
             'post_type' => 'product',
             'posts_per_page' => 21,  
-            's' => $current_search,
             'paged' => ( $current_paged ? $current_paged : 1 ),
         );
-
-        if($parent_ids){
-            $args['post__in'] = $parent_ids;
-        }
-
-        if($include){
-            $args['post__in'] = explode( ',', $include);
-        }
-
-        $args['tax_query'] =  array('relation' => 'AND');
-        $args['meta_query'] =  array('relation' => 'AND');
-
 
         if (isset($current_items_order_by)  && !(empty($current_items_order_by))) {
             if( $current_items_order_by == 'ASC' || $current_items_order_by == 'DESC' ){
@@ -131,6 +115,21 @@ function getProducts(WP_REST_Request $request) {
             }
         }
 
+        if($current_search){
+            $args['s'] = $current_search;
+        }
+
+        if($parent_ids){
+            $args['post__in'] = $parent_ids;
+        }
+
+        if($include){
+            $args['post__in'] = explode( ',', $include);
+        }
+
+        $args['tax_query'] =  array('relation' => 'AND');
+        $args['meta_query'] =  array('relation' => 'AND');
+
         if (isset($current_product_cat)  && !(empty($current_product_cat)) && !is_null($current_product_cat) && !($current_product_cat=="null")) {
             $request_params = array(
                 'taxonomy' => 'product_cat',
@@ -145,8 +144,12 @@ function getProducts(WP_REST_Request $request) {
             'value' => 'instock',
         );
         array_push($args['meta_query'], $request_params); 
+       
+        // wp_send_json_success( $args , 200 );
 
         $result = new WP_Query($args);
+
+
         $products = [];
 
         foreach ($result->posts as $post) {
@@ -189,8 +192,6 @@ function getProducts(WP_REST_Request $request) {
         $response->found_posts = $result->found_posts;
         $response->post_count = $result->post_count;
         $response->current_post = $result->current_post;
-
-        $response->test = $current_items_order_by;
         
         wp_send_json_success( $response , 200 );
     }
