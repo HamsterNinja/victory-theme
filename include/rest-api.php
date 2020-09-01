@@ -90,7 +90,7 @@ function getProducts(WP_REST_Request $request) {
         $args = array(
             'post_status' => 'publish',
             'post_type' => 'product',
-            'posts_per_page' => 21,  
+            'posts_per_page' => 24,  
             'paged' => ( $current_paged ? $current_paged : 1 ),
         );
 
