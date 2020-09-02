@@ -637,6 +637,30 @@ img.aligncenter {
 .alignleft {
   float: left;
 }
+.gallery.gallery-columns-2 .gallery-item {
+  width: 50%;
+  display: inline-block;
+  vertical-align: top;
+}
+.gallery.gallery-columns-3 .gallery-item {
+  width: 50%;
+  display: inline-block;
+  vertical-align: top;
+}
+.gallery.gallery-columns-4 .gallery-item {
+  width: 25%;
+  display: inline-block;
+  vertical-align: top;
+}
+.gallery-caption {
+  font-size: 14px;
+}
+.gallery {
+  font-size: 0;
+}
+.gallery figure {
+  margin: 20px 0px;
+}
 [v-cloak] {
   display: none;
 }
