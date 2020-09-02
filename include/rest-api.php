@@ -23,25 +23,17 @@ add_filter( 'woocommerce_rest_prepare_pa_colors_lenses', 'custom_api_attribute_r
 
 //Получение продуктов
 function getProducts(WP_REST_Request $request) {
-    function roundArray($n){
-        return round($n, 1);
-    };
     if(isset ($_GET)){
         $current_search = $_GET['search'];
         $current_product_cat = $_GET['product-cat'];
-        $current_items_order_by = $_GET['order_by'];
         $current_paged = $_GET['paged'];
         $include = $_GET['include'];
-
         $current_range_price = $_GET['range_price'];
-
         $current_items_order_by = $_GET['sort'];
-        
         $current_colors = $_GET['colors'] ? explode( ',', $_GET['colors']) : [];   
         $current_sizes = $_GET['sizes'] ? explode( ',', $_GET['sizes']) : [];   
         $current_materials = $_GET['materials'] ? explode( ',', $_GET['materials']) : [];   
         $current_widths = $_GET['widths'] ? explode( ',', $_GET['widths']) : [];   
-
 
         $args_variation = array(
             'post_status' => 'publish',
@@ -91,8 +83,12 @@ function getProducts(WP_REST_Request $request) {
             'post_status' => 'publish',
             'post_type' => 'product',
             'posts_per_page' => 24,  
+            'orderby' => 'menu_order',
             'paged' => ( $current_paged ? $current_paged : 1 ),
         );
+
+        $args['tax_query'] =  array('relation' => 'AND');
+        $args['meta_query'] =  array('relation' => 'AND');
 
         if (isset($current_items_order_by)  && !(empty($current_items_order_by))) {
             if( $current_items_order_by == 'ASC' || $current_items_order_by == 'DESC' ){
@@ -103,15 +99,23 @@ function getProducts(WP_REST_Request $request) {
                 $args['orderby'] = 'meta_value_num';
                 $args['order'] = 'DESC';
                 $args['meta_key'] = '_price';
+                $args['ignore_sticky_posts'] = 1;                
             }
             if( $current_items_order_by == 'price_asc'){
                 $args['orderby'] = 'meta_value_num';
                 $args['order'] = 'ASC';
                 $args['meta_key'] = '_price';
+                $args['ignore_sticky_posts'] = 1;   
             }
             if( $current_items_order_by == 'new'){
-                $args['ignore_sticky_posts'] = 1;
                 $args['orderby'] = array('meta_value' => 'ASC', 'date' => 'DESC');
+                $args['ignore_sticky_posts'] = 1;
+            }
+            if( $current_items_order_by == 'popular'){
+                $args['orderby'] = 'meta_value';
+                $args['order'] = 'ASC';
+                $args['meta_key'] = 'total_sales';
+                $args['ignore_sticky_posts'] = 1;
             }
         }
 
@@ -126,9 +130,6 @@ function getProducts(WP_REST_Request $request) {
         if($include){
             $args['post__in'] = explode( ',', $include);
         }
-
-        $args['tax_query'] =  array('relation' => 'AND');
-        $args['meta_query'] =  array('relation' => 'AND');
 
         if (isset($current_product_cat)  && !(empty($current_product_cat)) && !is_null($current_product_cat) && !($current_product_cat=="null")) {
             $request_params = array(
@@ -148,7 +149,6 @@ function getProducts(WP_REST_Request $request) {
         // wp_send_json_success( $args , 200 );
 
         $result = new WP_Query($args);
-
 
         $products = [];
 
@@ -417,7 +417,7 @@ function custom_api_product_response($data, $object){
     unset($data->data['date_created']);
     // unset($data->data['meta_data']);
     unset($data->data['description']);
-    // unset($data->data['price_html']);
+    unset($data->data['price_html']);
     // unset($data->data['attributes']);
     unset($data->data['date_created_gmt']);
     unset($data->data['date_modified']);
