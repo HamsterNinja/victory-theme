@@ -597,6 +597,46 @@ html {
   box-sizing: inherit;
   outline: none;
 }
+img.lazy {
+  -webkit-transition: opacity 0.2s ease-in-out;
+  transition: opacity 0.2s ease-in-out;
+  opacity: 0;
+}
+img.lazy.loaded {
+  opacity: 1;
+}
+img.alignright {
+  float: right;
+  margin: 0 0 2em 2em;
+}
+img.alignleft {
+  float: left;
+  margin: 0 2em 2em 0;
+}
+picture.aligncenter {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+picture.alignright {
+  float: right;
+  margin: 26px 0 1em 3em;
+}
+picture.alignleft {
+  float: left;
+  margin: 0 1em 1em 0;
+}
+img.aligncenter {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+.alignright {
+  float: right;
+}
+.alignleft {
+  float: left;
+}
 [v-cloak] {
   display: none;
 }
@@ -1507,7 +1547,7 @@ ul.pagination.list li {
   font-size: 14px;
   color: #000;
   line-height: 1.714;
-  margin-bottom: 30px;
+  margin-bottom: 1em;
 }
 .page-content--default ul {
   list-style-image: url(../images/list.png);
@@ -1520,6 +1560,20 @@ ul.pagination.list li {
   margin-bottom: 15px;
 }
 .page-content--default ul li a, .page-content--default p a {
+  font-size: 14px;
+  color: #727272;
+}
+.page-content--default ol {
+  padding-left: 20px;
+  margin-bottom: 30px;
+  list-style: decimal;
+}
+.page-content--default ol li {
+  font-size: 14px;
+  color: #000;
+  margin-bottom: 15px;
+}
+.page-content--default ol li a, .page-content--default p a {
   font-size: 14px;
   color: #727272;
 }
@@ -2024,7 +2078,7 @@ span.added-product__value {
 .border-woo {
   font-style: normal;
   margin-bottom: 0;
-  border: 1px solid rgba(0, 0, 0, .1);
+  border: 1px solid rgba(0, 0, 0, 0.1);
   border-bottom-width: 2px;
   border-right-width: 2px;
   text-align: left;
