@@ -1655,6 +1655,16 @@ span.added-product__value {
     padding: 20px 0;
 }
 
+.page-content figure {
+    display: flex;
+    flex-direction: column;
+}
+
+.page-content figure figcaption {
+    order: -1;
+    padding-bottom: 10px;
+}
+
 @import 'popup';
 @import 'layout/header';
 @import 'layout/footer';
