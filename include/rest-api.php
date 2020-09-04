@@ -60,6 +60,15 @@ function getProducts(WP_REST_Request $request) {
             array_push($args_variation['meta_query'], $request_params); 
         }
 
+        $min_price = array(
+            'key' => '_price',
+            'value' => 0,
+            'compare' => '>',
+            'type' => 'NUMERIC'
+        );
+        array_push($args_variation['meta_query'], $min_price);
+
+
         if ( isset($current_range_price)  && !(empty($current_range_price)) ) {
             $args_variation['orderby'] = 'meta_value_num';
             $args_variation['order'] = $_GET['price'];

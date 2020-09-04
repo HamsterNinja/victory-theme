@@ -400,6 +400,14 @@ class StarterSite extends TimberSite
         );
         array_push($args_variation['meta_query'], $request_params);
 
+        $min_price = array(
+            'key' => '_price',
+            'value' => 0,
+            'compare' => '>',
+            'type' => 'NUMERIC'
+        );
+        array_push($args_variation['meta_query'], $min_price);
+
         $q = new WP_Query($args_variation);
         $parent_ids = wp_list_pluck($q->posts, 'post_parent');
 
@@ -419,6 +427,7 @@ class StarterSite extends TimberSite
         {
             $args['post__in'] = explode(',', $include);
         }
+
         $context['random_prod'] = Timber::get_posts($args);
 
         $args = array(
