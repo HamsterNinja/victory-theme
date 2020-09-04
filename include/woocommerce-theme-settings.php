@@ -41,21 +41,25 @@ function show_product_order($columns)
 
 function get_stock_variations_from_product($product_id)
 {
-    $product = wc_get_product($product_id);
-    $variations = $product->get_available_variations();
-    foreach ($variations as $variation)
-    {
-        $variation_id = $variation['variation_id'];
-        $variation_obj = new WC_Product_variation($variation_id);
-        $stock += $variation_obj->get_stock_quantity();
+    try {
+        $product = wc_get_product($product_id);
+        $variations = $product->get_available_variations();
+        foreach ($variations as $variation)
+        {
+            $variation_id = $variation['variation_id'];
+            $variation_obj = new WC_Product_variation($variation_id);
+            $stock += $variation_obj->get_stock_quantity();
+        }
+        if(is_null($stock)){
+            $stock = $product->get_stock_quantity();
+        }
+        if(is_null($stock)){
+            $stock = 0;
+        }
+        return $stock;
+    } catch (Exception $e) {
+        return 0;
     }
-    if(is_null($stock)){
-        $stock = $product->get_stock_quantity();
-    }
-    if(is_null($stock)){
-        $stock = 0;
-    }
-    return $stock;
 }
 
 add_action('manage_product_posts_custom_column', 'wpso23858236_product_column_stock_goods', 10, 2);

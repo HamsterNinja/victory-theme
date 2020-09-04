@@ -18,31 +18,41 @@
         <div class="news-page-right">
         	<div class="news-page-right-name">Другие новости</div>
         	<div class="news-page-right-items">
-        		<a href="http://ci76366.tmweb.ru/novost/" class="other-news-item">
-        			<div class="other-news-item-img"><img src="{{ site.theme.link }}/assets/images/news2.jpg" alt=""></div>
-        			<div class="other-news-item-name">УВАЖАЕМЫЕ ПАРТНЁРЫ! ПРИГЛАШАЕМ ВАС 21 ФЕВРАЛЯ В ШОУРУМ НА ДЕНЬ БАЙЕРА.</div>
-        		</a>
-        		<a href="http://ci76366.tmweb.ru/novost/" class="other-news-item">
-        			<div class="other-news-item-img"><img src="{{ site.theme.link }}/assets/images/news2.jpg" alt=""></div>
-        			<div class="other-news-item-name">УВАЖАЕМЫЕ ПАРТНЁРЫ! ПРИГЛАШАЕМ ВАС 21 ФЕВРАЛЯ В ШОУРУМ НА ДЕНЬ БАЙЕРА.</div>
-        		</a>
+				{% for post in extra_news %}
+					<a href="{{ post.link }}" class="other-news-item">
+						<div class="other-news-item-img">
+							{% if post.thumbnail %}
+								<picture>
+									<source srcset="{{ post.thumbnail.src('medium_large')|tojpg }}" type="image/jpeg">
+									<img src="{{ post.thumbnail.src('medium_large')|tojpg }}" alt="{{ post.title }}">
+								</picture>
+							{% else %}
+								<img class="" src="{{ site.theme.link }}/assets/images/placeholder-images.webp" alt="">
+							{% endif %}
+						</div>
+						<div class="other-news-item-name">{{ post.title }}</div>
+					</a>
+				{% endfor %}
         	</div>
         </div>
         <div class="news-page-bottom">
         	<div class="news-page-bottom-name">Читайте так же</div>
         	<div class="news-page-bottom-items">
-        		<a href="http://ci76366.tmweb.ru/novost/" class="news-page-bottom-item">
-        			<div class="news-page-bottom-item-img"><img src="{{ site.theme.link }}/assets/images/news2.jpg" alt=""></div>
-        			<div class="news-page-bottom-item-name">УВАЖАЕМЫЕ ПАРТНЁРЫ! ПРИГЛАШАЕМ ВАС 21 ФЕВРАЛЯ В ШОУРУМ НА ДЕНЬ БАЙЕРА.</div>
-        		</a>
-        		<a href="http://ci76366.tmweb.ru/novost/" class="news-page-bottom-item">
-        			<div class="news-page-bottom-item-img"><img src="{{ site.theme.link }}/assets/images/news2.jpg" alt=""></div>
-        			<div class="news-page-bottom-item-name">УВАЖАЕМЫЕ ПАРТНЁРЫ! ПРИГЛАШАЕМ ВАС 21 ФЕВРАЛЯ В ШОУРУМ НА ДЕНЬ БАЙЕРА.</div>
-        		</a>
-        		<a href="http://ci76366.tmweb.ru/novost/" class="news-page-bottom-item">
-        			<div class="news-page-bottom-item-img"><img src="{{ site.theme.link }}/assets/images/news2.jpg" alt=""></div>
-        			<div class="news-page-bottom-item-name">УВАЖАЕМЫЕ ПАРТНЁРЫ! ПРИГЛАШАЕМ ВАС 21 ФЕВРАЛЯ В ШОУРУМ НА ДЕНЬ БАЙЕРА.</div>
-        		</a>
+				{% for post in read_news %}
+					<a href="{{ post.link }}" class="news-page-bottom-item">
+						<div class="news-page-bottom-item-img">
+							{% if post.thumbnail %}
+								<picture>
+									<source srcset="{{ post.thumbnail.src('medium_large')|tojpg }}" type="image/jpeg">
+									<img src="{{ post.thumbnail.src('medium_large')|tojpg }}" alt="{{ post.title }}">
+								</picture>
+							{% else %}
+								<img class="" src="{{ site.theme.link }}/assets/images/placeholder-images.webp" alt="">
+							{% endif %}
+						</div>
+						<div class="news-page-bottom-item-name">{{ post.title }}</div>
+					</a>
+				{% endfor %}
         	</div>
         </div>
     </div>

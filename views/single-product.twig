@@ -52,7 +52,7 @@
                         <label 
                             class="control control-radio size-item" 
                             v-for="unicSize in uniqueProductVariations" 
-                            :class="unicSize.stock_quantity > 0 ? 'instock' : 'outstock'"
+                            :class="(unicSize.stock_quantity > 0) && (unicSize.regular_price)  ? 'instock' : 'outstock'"
                             v-cloak
                         >
                             <input v-model="productID" @change="selectSize(unicSize.value)" type="radio" name="size" :value="unicSize.id" />
