@@ -244,7 +244,7 @@
     padding: 10px 0px 10px 15px;
   }
   .main-header-left {
-    width: calc(100% - 170px);
+    width: 26px;
   }
   .main-header-logo {
     width: calc(100% - 56px);
@@ -261,6 +261,12 @@
   }
   .news-archive-item-info {
     width: calc(100% - 235px);
+  }
+  .alert {
+    width: 95%;
+  }
+  .alert-container {
+    justify-content: center;
   }
 }
 @media (max-width: 700px) {
@@ -433,7 +439,7 @@
     min-height: 500px;
   }
   .under-footer div, .under-footer li {
-    margin-right: 0 !Important;
+    margin-right: 0 !important;
     margin-bottom: 7px;
   }
 }
